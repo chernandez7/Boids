@@ -1,7 +1,12 @@
 ### To do ###
-* [SFML Library](http://www.sfml-dev.org/index.php) - Visualizing the project. When installing SFML Library, choose C++11
+* Implement PVector class that allows for functionality seen in example-Boids.cpp
+
+### Goals ###
 * General Layout: Create 2D application that simulates boids. Include functionality that allows us to change settings regarding boid behavior (e.g., velocity, flocking, etc). If time allows, predators.
 * Also if time allows, user interactivity -- controlling flocking behavior? Controlling predators?
+
+### How to install SFML
+* [SFML Library](http://www.sfml-dev.org/index.php) - Visualizing the project. When installing SFML Library, choose C++11
 
 ### How to clone this repository while using Visual Studio ###
 * Open up Visual Studio

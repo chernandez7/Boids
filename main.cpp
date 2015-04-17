@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "Squider");
+    sf::RenderWindow window(sf::VideoMode(400, 400), "TITLE FOR WINDOW");
     sf::CircleShape shape(100.f);
     sf::CircleShape shapestshape(155.f);
     shapestshape.setFillColor(sf::Color::Blue);
