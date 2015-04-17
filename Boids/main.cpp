@@ -1,4 +1,11 @@
+// This file acts as the main for our boids project. Here, we utilize the SFML
+// library, import boids and flock classes, and run the program.
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <vector>
+// Include: Boids
+//          Flock
+using namespace std;
 
 int main()
 {
