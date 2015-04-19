@@ -3,12 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-// Include: Boids
 //          Flock
+//			Pvector
 using namespace std;
 
 int main()
 {
+
     sf::RenderWindow window(sf::VideoMode(400, 400), "TITLE FOR WINDOW");
     sf::CircleShape shape(100.f);
     sf::CircleShape shapestshape(155.f);
