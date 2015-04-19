@@ -1,4 +1,3 @@
-<<<<<<< HEAD:README.md
 ### To do ###
 * Implement PVector class that allows for functionality seen in example-Boids.cpp
 
