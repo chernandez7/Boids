@@ -1,3 +1,7 @@
+#include "Pvector.h"
+
+using namespace std;
+
 #define BOID_H_
 #ifndef BOID_H_
 
