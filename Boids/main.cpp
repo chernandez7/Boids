@@ -3,10 +3,15 @@
 //#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include <Boid.h>
-#include <Pvector.h>
-//          Flock
-//			Pvector
+#include "Boid.h"
+#include "Pvector.h"
+#include "Flock.h"
+#include "SFML\Window.hpp"
+#include "SFML\Window\Mouse.hpp" //mouse functionality maybe?
+#include "SFML\Graphics.hpp"
+#include "SFML\Main.hpp"
+
+
 using namespace std;
 
 int main()

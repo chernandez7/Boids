@@ -1,4 +1,5 @@
 #include "Boid.h"
+#include "Flock.h"
 
 using namespace std;
 
@@ -8,5 +9,5 @@ using namespace std;
 
 void Flock::addBoid(Boid b)
 {
-	flock.add(b)
+	flock.push_back(b);
 }
