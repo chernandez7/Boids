@@ -2,8 +2,8 @@
 
 using namespace std;
 
-#define BOID_H_
 #ifndef BOID_H_
+#define BOID_H_
 
 class Boid
 {
@@ -27,10 +27,15 @@ private:
 		//initialize acceleration
 		acceleration = new Pvector(0, 0);
 		//initialize velocity
+		velocity = new Pvector(0, 0);
 		//initialize location
+		location = new Pvector(0, 0);
 		//initialize r
+		r = 0;
 		//initialize max speed
+		maxSpeed = 3;
 		//initialize max force
+		maxForce = 2;
 	}
 
 	//Accessor Functions

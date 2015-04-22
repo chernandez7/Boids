@@ -12,13 +12,16 @@ private:
 
 	//Initialized Pvector and sets values to 0. ?
 	Pvector()
-	{}
+	{
+	
+	}
 
 	Pvector(float x, float y)
 	{
 		//initialize x
-
+		x = 0;
 		//initialize y
+		y=0;
 	}
 	
 	//Accessor Functions
