@@ -134,6 +134,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pvector.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Boid.h" />
+    <ClInclude Include="Pvector.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
