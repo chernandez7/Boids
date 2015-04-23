@@ -21,7 +21,7 @@ private:
 
 	Flock()
 	{
-		flock = new vector<Boid>();
+		//flock = new vector<Boid>();
 	}
 
 	//add function

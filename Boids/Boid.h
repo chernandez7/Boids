@@ -22,21 +22,21 @@ public:
 
 private:
 
-	Boid(float x, float y)
-	{
+	Boid(float x, float y);
+	/*{
 		//initialize acceleration
-		acceleration = new Pvector(0, 0);
+	//	acceleration = new Pvector(0, 0);
 		//initialize velocity
-		velocity = new Pvector(0, 0);
+		//velocity = new Pvector(0, 0);
 		//initialize location
-		location = new Pvector(0, 0);
+		//location = new Pvector(0, 0);
 		//initialize r
 		r = 0;
 		//initialize max speed
 		maxSpeed = 3;
 		//initialize max force
 		maxForce = 2;
-	}
+	}*/
 
 	//Accessor Functions
 	Pvector getVelocity();
