@@ -36,6 +36,7 @@ public:
 	float distance(Pvector v1, Pvector v2);
 	float dotProduct(Pvector v1, Pvector v2);
 	float magnitude(Pvector v);
+	float magnitude();
 	float angleBetween(Pvector v1, Pvector v2);
 
 	//Copy Function
@@ -51,6 +52,8 @@ public:
 	void divVector(Pvector v, Pvector v2);
 	void divScaler(Pvector v, float x);
 
+	//Normalize
+	Pvector Normalize(Pvector v);
 
 };
 

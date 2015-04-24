@@ -46,6 +46,13 @@ float Pvector::magnitude(Pvector v)
 
 	return mag;
 }
+//Calculates magnitude of referenced object
+float Pvector::magnitude()
+{
+	float mag = sqrt(x * x + y * y);
+
+	return mag;
+}
 
 //Calculate the angle between Pvector 1 and Pvector 2
 float Pvector::angleBetween(Pvector v1, Pvector v2)
@@ -113,23 +120,42 @@ void Pvector::divVector(Pvector v, Pvector v2)
 	v2.y /= v.y;
 }
 
+//Adds to a Pvector by a constant number
 void Pvector::addScaler(Pvector v, float s)
 {
 	v.x += s;
 	v.y += s;
 }
+//Adds to a Pvector by a constant number
 void Pvector::subScaler(Pvector v, float s)
 {
 	v.x -= s;
 	v.y -= s;
 }
+//Adds to a Pvector by a constant number
 void Pvector::mulScaler(Pvector v, float s)
 {
 	v.x *= s;
 	v.y *= s;
 }
+//Adds to a Pvector by a constant number
 void Pvector::divScaler(Pvector v, float s)
 {
 	v.x /= s;
 	v.y /= s;
+}
+
+Pvector Pvector::Normalize(Pvector v)
+{
+	float m = magnitude();
+
+	if (m > 0)
+	{
+		v.set(x / m, y / m);
+	}
+	else
+	{
+		v.set(x, y);
+	}
+	return v;
 }
