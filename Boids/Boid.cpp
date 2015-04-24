@@ -71,3 +71,19 @@ void Boid::changeMaxForce(float force)
 {
 	maxForce = force;
 }
+
+//Seperation checks for nearby boids and does some action when getting closer (Seperate, collide, avoid)
+Pvector Boid::Seperation(Pvector Boid)
+{
+
+}
+//Alignment calculates the average velocity in the field of view and manipulates it accordingly
+Pvector Boid::Alignment(Pvector Boid)
+{
+
+}
+//Cohesion Finds the average location and manipulates the steering force to move in that direction.
+Pvector Boid::Cohesion(Pvector Boid)
+{
+
+}

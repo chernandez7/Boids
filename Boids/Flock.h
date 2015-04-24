@@ -14,11 +14,10 @@ using namespace std;
 // Possible: struct instead? template?
 class Flock
 {
-public:
+private:
 	vector<Boid> flock;
 
-private:
-
+public:
 	Flock()
 	{
 		//flock = new vector<Boid>();

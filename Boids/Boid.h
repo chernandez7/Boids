@@ -20,23 +20,23 @@ public:
 	float maxForce;
 	float r; // Field of Vision?
 
-private:
 
-	Boid(float x, float y);
-	/*{
+
+	Boid(float x, float y)
+	{
 		//initialize acceleration
-	//	acceleration = new Pvector(0, 0);
+		Pvector acceleration(0, 0);
 		//initialize velocity
-		//velocity = new Pvector(0, 0);
+		Pvector velocity(0, 0);
 		//initialize location
-		//location = new Pvector(0, 0);
+		Pvector location(0, 0);
 		//initialize r
 		r = 0;
 		//initialize max speed
 		maxSpeed = 3;
 		//initialize max force
 		maxForce = 2;
-	}*/
+	}
 
 	//Accessor Functions
 	Pvector getVelocity();
@@ -53,6 +53,15 @@ private:
 	void changeR(float x);
 	void changeMaxSpeed(float speed);
 	void changeMaxForce(float force);
+
+	//Need to add the 3 laws functions + .cpp functionality of them
+
+	//Seperation
+	Pvector Seperation(Pvector Boid);
+	//Alignment
+	Pvector Alignment(Pvector Boid);
+	//Cohesion
+	Pvector Cohesion(Pvector Boid);
 };
 
 #endif BOID_H_

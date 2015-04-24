@@ -57,7 +57,7 @@ float Pvector::angleBetween(Pvector v1, Pvector v2)
 	double dot = v1.x * v2.x + v1.y * v2.y;
 	double v1mag = sqrt(v1.x * v1.x + v1.y * v1.y); 
 	double v2mag = sqrt(v2.x * v2.x + v2.y * v2.y);
-	double amt = dot / (v1mag * v2mag);
+	double amt = dot / (v1mag * v2mag); //Based of definition
 
 	if (amt <= -1) {
 		return pi; //PConstants equivalent in C++ ?
@@ -87,4 +87,49 @@ Pvector Pvector::copy(Pvector v)
 	Pvector copy(v.x, v.y);
 
 	return copy;
+}
+//Adds 2 vectors
+void Pvector::addVector(Pvector v, Pvector v2)
+{
+	v2.x += v.x;
+	v2.y += v.y;
+}
+//Subtracts 2 vectors
+void Pvector::subVector(Pvector v, Pvector v2)
+{
+	v2.x -= v.x;
+	v2.y -= v.y;
+}
+//Multiplies 2 vectors
+void Pvector::mulVector(Pvector v, Pvector v2)
+{
+	v2.x *= v.x;
+	v2.y *= v.y;
+}
+//Divides 2 vectors
+void Pvector::divVector(Pvector v, Pvector v2)
+{
+	v2.x /= v.x;
+	v2.y /= v.y;
+}
+
+void Pvector::addScaler(Pvector v, float s)
+{
+	v.x += s;
+	v.y += s;
+}
+void Pvector::subScaler(Pvector v, float s)
+{
+	v.x -= s;
+	v.y -= s;
+}
+void Pvector::mulScaler(Pvector v, float s)
+{
+	v.x *= s;
+	v.y *= s;
+}
+void Pvector::divScaler(Pvector v, float s)
+{
+	v.x /= s;
+	v.y /= s;
 }

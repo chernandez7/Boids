@@ -3,18 +3,18 @@
 
 class Pvector
 {
+
+	
+
 public:
 
 	float x;
 	float y;
 
-private:
 
 	//Initialized Pvector and sets values to 0. ?
 	Pvector()
-	{
-	
-	}
+	{}
 
 	Pvector(float x, float y)
 	{
@@ -40,6 +40,17 @@ private:
 
 	//Copy Function
 	Pvector copy(Pvector v);
+
+	//Need to be able to add/subtract vectors
+	void addVector(Pvector v, Pvector v2);
+	void addScaler(Pvector v, float x);
+	void subVector(Pvector v, Pvector v2);
+	void subScaler(Pvector v, float x);
+	void mulVector(Pvector v, Pvector v2);
+	void mulScaler(Pvector v, float x);
+	void divVector(Pvector v, Pvector v2);
+	void divScaler(Pvector v, float x);
+
 
 };
 
