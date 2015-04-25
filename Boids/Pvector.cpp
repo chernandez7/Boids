@@ -121,28 +121,28 @@ void Pvector::divVector(Pvector v, Pvector v2)
 }
 
 //Adds to a Pvector by a constant number
-void Pvector::addScaler(Pvector v, float s)
+void Pvector::addScalar(Pvector v, float s)
 {
 	v.x += s;
 	v.y += s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::subScaler(Pvector v, float s)
+void Pvector::subScalar(Pvector v, float s)
 {
-	v.x -= s;
-	v.y -= s;
+	v.x = v.x - s;
+	v.y = v.y - s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::mulScaler(Pvector v, float s)
+void Pvector::mulScalar(Pvector v, float s)
 {
-	v.x *= s;
-	v.y *= s;
+	v.x = v.x * s;
+	v.y = v.y * s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::divScaler(Pvector v, float s)
+void Pvector::divScalar(Pvector v, float s)
 {
-	v.x /= s;
-	v.y /= s;
+	v.x = v.x / s;
+	v.y = v.y / s;
 }
 
 Pvector Pvector::Normalize(Pvector v)

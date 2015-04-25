@@ -37,7 +37,9 @@ public:
 		//initialize max force
 		maxForce = 2;
 	}
-
+	
+	/* As all of our methods within Boid.h are public, we do not need accessor
+	functions. Commenting these out for now. 
 	//Accessor Functions
 	Pvector getVelocity();
 	Pvector getAcceleration();
@@ -45,6 +47,7 @@ public:
 	float getR();
 	float getMaxSpeed();
 	float getMaxForce();
+	*/
 
 	//Mutator Functions
 	void changeVelocity(float speed);
@@ -56,7 +59,7 @@ public:
 
 	//Need to add the 3 laws functions + .cpp functionality of them
 
-	//Seperation
+	//Separation
 	Pvector Seperation(Pvector Boid);
 	//Alignment
 	Pvector Alignment(Pvector Boid);
@@ -64,4 +67,4 @@ public:
 	Pvector Cohesion(Pvector Boid);
 };
 
-#endif BOID_H_
+#endif
