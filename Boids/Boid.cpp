@@ -128,13 +128,56 @@ Pvector Boid::Separation(vector<Boid> boids)
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
 	float neighbordist = 50;
-
-	return steer;
-
+	Pvector sum(0, 0);
+	int count = 0;
+	for (int i = 0; i < Boids.size(); i++)
+	{
+		float d = distance(location, Boids[i].location);
+		if ((d > 0) && (d < neighbordist))
+		{
+			sum.add(Boids[i].velocity);
+			count++;
+		}
+	}
+	// If there are boids close enough for alignment...
+	if (count > 0)
+	{
+		sum.div((float)count); 		// Divide sum by the number of close boids
+		sum.normalize();	   		// Turn sum into a unit vector, and
+		sum.mulScalar(maxSpeed);    // Multiply by maxSpeed
+		// Now we create the steer Pvector, which we'll return
+		// Steer = Desired - Velocity
+		Pvector steer = Pvector.subVector(sum, velocity);
+		steer.limit(maxForce);
+		return steer;
+	} else {
+		Pvector temp(0, 0);
+		return temp;
+	}
 }
+
 // Cohesion finds the average location of nearby boids and manipulates the 
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
 	float neighbordist = 50;
+	Pvector sum(0, 0);
+	int count = 0;
+	for (int i = 0; i < Boids.size(); i++)
+	{
+		float d = distance(location, Boids[i].location);
+		if ((d > 0) && (d < neighbordist))
+		{
+			sum.addVector(Boids[i].location);
+			count++;
+		}
+	}
+	if (count > 0)
+	{
+		sum.divScalar(count);
+		return seek(sum);
+	} else {
+		Pvector temp(0,0);
+		return temp;
+	}
 }
