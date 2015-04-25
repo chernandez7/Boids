@@ -1,4 +1,5 @@
 #include "Pvector.h"
+#include <vector>
 
 using namespace std;
 
@@ -36,6 +37,14 @@ public:
 		maxSpeed = 3;
 		//initialize max force
 		maxForce = 2;
+	}
+	Boid::~Boid()
+	{
+		/*
+		delete acceleration;
+		delete velocity;
+		delete location;
+		*/
 	}
 	
 	/* As all of our methods within Boid.h are public, we do not need accessor

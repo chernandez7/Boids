@@ -21,6 +21,12 @@ public:
 		x = xComp;
 		y = yComp;
 	}
+	Pvector::~Pvector()
+	{
+		/*
+		
+		*/
+	}
 	
 	//Accessor Functions
 	//Commented out for now.

@@ -55,10 +55,12 @@ int main()
 			window.draw(boid);
 		}
 		//While window is open apply 3 rules to each boid in vector<boid>
+		/*
 		for (int i = 0; i < flock.getSize(); i++)
 		{
 			flock[i].update();
 		}
+		*/
 		window.display();
 	}
 	return 0;

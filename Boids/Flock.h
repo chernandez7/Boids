@@ -23,6 +23,13 @@ public:
 		//flock = new vector<Boid>();
 	}
 
+	Flock::~Flock()
+	{
+		/*
+		delete flock;
+		*/
+	}
+
 	//add function
 	void addBoid(Boid b);
 	int getSize();
