@@ -39,19 +39,18 @@ float Pvector::dotProduct(Pvector v1, Pvector v2)
 	return dot;
 }
 
-//calculates the magnitude of a vector
-float Pvector::magnitude(Pvector v)
-{
-	float mag = sqrt(v.x * v.x + v.y * v.y);
 
-	return mag;
-}
 //Calculates magnitude of referenced object
 float Pvector::magnitude()
 {
 	float mag = sqrt(x * x + y * y);
 
 	return mag;
+}
+
+void Pvector::setMagnitude(float x)
+{
+	set(x / m, y / m);
 }
 
 //Calculate the angle between Pvector 1 and Pvector 2
@@ -76,6 +75,7 @@ float Pvector::angleBetween(Pvector v1, Pvector v2)
 	return tmp;
 }
 
+/*
 //Returns X value of Pvector
 float Pvector::getX()
 {
@@ -87,6 +87,7 @@ float Pvector::getY()
 {
 	return y;
 }
+*/
 
 //Creates and returns a copy of the Pvector used as a parameter
 Pvector Pvector::copy(Pvector v)
@@ -96,66 +97,76 @@ Pvector Pvector::copy(Pvector v)
 	return copy;
 }
 //Adds 2 vectors
-void Pvector::addVector(Pvector v, Pvector v2)
+void Pvector::addVector(Pvector v)
 {
-	v2.x += v.x;
-	v2.y += v.y;
+	x += v.x;
+	y += v.y;
 }
 //Subtracts 2 vectors
-void Pvector::subVector(Pvector v, Pvector v2)
+void Pvector::subVector(Pvector v)
 {
-	v2.x -= v.x;
-	v2.y -= v.y;
+	x -= v.x;
+	y -= v.y;
 }
 //Multiplies 2 vectors
-void Pvector::mulVector(Pvector v, Pvector v2)
+void Pvector::mulVector(Pvector v)
 {
-	v2.x *= v.x;
-	v2.y *= v.y;
+	x *= v.x;
+	y *= v.y;
 }
 //Divides 2 vectors
-void Pvector::divVector(Pvector v, Pvector v2)
+void Pvector::divVector(Pvector v)
 {
-	v2.x /= v.x;
-	v2.y /= v.y;
+	x /= v.x;
+	y /= v.y;
 }
 
 //Adds to a Pvector by a constant number
-void Pvector::addScalar(Pvector v, float s)
+void Pvector::addScalar(float s)
 {
-	v.x += s;
-	v.y += s;
+	x += s;
+	y += s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::subScalar(Pvector v, float s)
+void Pvector::subScalar(float s)
 {
-	v.x = v.x - s;
-	v.y = v.y - s;
+	x-= s;
+	y-= s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::mulScalar(Pvector v, float s)
+void Pvector::mulScalar(float s)
 {
-	v.x = v.x * s;
-	v.y = v.y * s;
+	x *= s;
+	y *= s;
 }
 //Adds to a Pvector by a constant number
-void Pvector::divScalar(Pvector v, float s)
+void Pvector::divScalar(float s)
 {
-	v.x = v.x / s;
-	v.y = v.y / s;
+	x /= s;
+	y /= s;
 }
 
-Pvector Pvector::Normalize(Pvector v)
+Pvector Pvector::normalize( )
 {
 	float m = magnitude();
 
 	if (m > 0)
 	{
-		v.set(x / m, y / m);
+		set(x / m, y / m);
 	}
 	else
 	{
-		v.set(x, y);
+		set(x, y);
 	}
 	return v;
+}
+
+void Pvector::limit(double max)
+{
+	double size = magnitude();
+
+	if (size > max)
+	{
+		set(x / size, y / size); //Not too sure on this
+	}
 }

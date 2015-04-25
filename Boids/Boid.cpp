@@ -80,10 +80,10 @@ void Boid::changeMaxForce(float force)
 // Separation takes the vector of boids as a parameter and checks for the 
 // distance between all the boids. If for any boid, that distance ends up being
 // more than 
-Pvector Boid::Seperation(vector<Boid> boids)
+Pvector Boid::Separation(vector<Boid> boids)
 {
 	float desiredseparation = 25.0;
-	Pvector steer(0,0);
+	Pvector steer(0, 0);
 	int count = 0;
 	// For every boid in the system, check if it's too close
 	for (int i = 0; i < boids.size(); i++)
@@ -95,13 +95,37 @@ Pvector Boid::Seperation(vector<Boid> boids)
 		//    with itself) and smaller than the desiredseparation, create a
 		//    Pvector that points away from all of the other boids
 
-		float d = boids[i].Pvector.distance()
+		float d = distance(location, boids[i].location);
+
+		if ((d > 0) && (d < desiredseparation))
+		{
+			Pvector diff;
+			diff.subVector(boids[i].location);
+			diff.normalize();
+			diff.divScalar(d);        // Weight by distance
+			steer.addVector(diff);
+			count++;
+		}
 	}
+
+	if (count >0)
+	{
+		steer.divScalar((float)count);
+	}
+	if (steer.magnitude() > 0) 
+	{
+		// Implement Reynolds: Steering = Desired - Velocity
+		steer.normalize();
+		steer.mulScalar(maxSpeed);
+		steer.subVector(velocity);
+		steer.limit(maxForce);
+	}
+	return steer;
 }
 // Alignment calculates the average velocity in the field of view and 
 // manipulates the velocity of the Boid passed as parameter to adjust to that
 // of nearb boids.
-Pvector Boid::Alignment(Pvector Boid)
+Pvector Boid::Alignment(vector<Boid> Boids)
 {
 	float neighbordist = 50;
 
@@ -110,7 +134,7 @@ Pvector Boid::Alignment(Pvector Boid)
 }
 // Cohesion finds the average location of nearby boids and manipulates the 
 // steering force to move in that direction.
-Pvector Boid::Cohesion(Pvector Boid)
+Pvector Boid::Cohesion(vector<Boid> Boids)
 {
 	float neighbordist = 50;
 }

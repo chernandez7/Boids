@@ -60,11 +60,11 @@ public:
 	//Need to add the 3 laws functions + .cpp functionality of them
 
 	//Separation
-	Pvector Seperation(Pvector Boid);
+	Pvector Separation(vector<Boid> Boids);
 	//Alignment
-	Pvector Alignment(Pvector Boid);
+	Pvector Alignment(vector<Boid> Boids);
 	//Cohesion
-	Pvector Cohesion(Pvector Boid);
+	Pvector Cohesion(vector<Boid> Boids);
 };
 
 #endif

@@ -34,25 +34,27 @@ public:
 	//Calculating Functions
 	float distance(Pvector v1, Pvector v2);
 	float dotProduct(Pvector v1, Pvector v2);
-	float magnitude(Pvector v);
 	float magnitude();
+	void setMagnitude(float x);
 	float angleBetween(Pvector v1, Pvector v2);
 
 	//Copy Function
 	Pvector copy(Pvector v);
 
 	//Need to be able to add/subtract vectors
-	void addVector(Pvector v, Pvector v2);
-	void addScalar(Pvector v, float x);
-	void subVector(Pvector v, Pvector v2);
-	void subScalar(Pvector v, float x);
-	void mulVector(Pvector v, Pvector v2);
-	void mulScalar(Pvector v, float x);
-	void divVector(Pvector v, Pvector v2);
-	void divScalar(Pvector v, float x);
+	void addVector(Pvector v);
+	void addScalar(float x);
+	void subVector(Pvector v);
+	void subScalar(float x);
+	void mulVector(Pvector v);
+	void mulScalar(float x);
+	void divVector(Pvector v);
+	void divScalar(float x);
 
 	//Normalize
-	Pvector Normalize(Pvector v);
+	Pvector normalize();
+
+	void limit(double max);
 
 };
 
