@@ -65,6 +65,10 @@ public:
 	Pvector Alignment(vector<Boid> Boids);
 	//Cohesion
 	Pvector Cohesion(vector<Boid> Boids);
+
+	Pvector seek(Pvector v);
+	void update();
+
 };
 
 #endif

@@ -25,7 +25,7 @@ public:
 
 	//add function
 	void addBoid(Boid b);
-
+	int getSize();
 };
 
 #endif

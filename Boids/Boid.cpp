@@ -76,6 +76,21 @@ void Boid::changeMaxForce(float force)
 	maxForce = force;
 }
 
+Pvector Boid::seek(Pvector v)
+{
+	Pvector desired, steer;
+	desired.subVector(v);  // A vector pointing from the location to the target
+	// Normalize desired and scale to maximum speed
+	desired.normalize();
+	desired.mulScalar(maxSpeed);
+	// Steering = Desired minus Velocity
+	//steer = PVector.sub(desired, velocity);
+	steer.subTwoVector(desired,velocity);
+	steer.limit(maxForce);  // Limit to maximum steering force
+	return steer;
+}
+
+
 // Separation -- Should this be included in the flock class? Assumes boid flock
 // Separation takes the vector of boids as a parameter and checks for the 
 // distance between all the boids. If for any boid, that distance ends up being
@@ -135,19 +150,20 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 		float d = distance(location, Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
-			sum.add(Boids[i].velocity);
+			sum.addVector(Boids[i].velocity);
 			count++;
 		}
 	}
 	// If there are boids close enough for alignment...
 	if (count > 0)
 	{
-		sum.div((float)count); 		// Divide sum by the number of close boids
+		sum.divScalar((float)count); 		// Divide sum by the number of close boids
 		sum.normalize();	   		// Turn sum into a unit vector, and
 		sum.mulScalar(maxSpeed);    // Multiply by maxSpeed
 		// Now we create the steer Pvector, which we'll return
 		// Steer = Desired - Velocity
-		Pvector steer = Pvector.subVector(sum, velocity);
+		Pvector steer;
+		steer.subTwoVector(sum, velocity);
 		steer.limit(maxForce);
 		return steer;
 	} else {
@@ -180,4 +196,16 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 		Pvector temp(0,0);
 		return temp;
 	}
+}
+
+void Boid::update()
+{
+	// Update velocity
+	velocity.addVector(acceleration);
+	// Limit speed
+	velocity.limit(maxSpeed);
+	location.addVector(velocity);
+	// Reset accelertion to 0 each cycle
+	acceleration.mulScalar(0);
+
 }

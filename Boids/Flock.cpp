@@ -11,3 +11,8 @@ void Flock::addBoid(Boid b)
 {
 	flock.push_back(b);
 }
+
+int Flock::getSize()
+{
+	return flock.size();
+}

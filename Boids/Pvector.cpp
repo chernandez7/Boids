@@ -23,18 +23,18 @@ void Pvector::setV(Pvector v)
 }
 
 //Calculates the distance between the first Pvector and second Pvector
-float Pvector::distance(Pvector v1, Pvector v2)
+float Pvector::distance(Pvector v)
 {
-	float dx = v1.x - v2.x;
-	float dy = v1.y - v2.y;
+	float dx = x - v.x;
+	float dy = y - v.y;
 	float dist = sqrt(dx*dx + dy*dy);
 	return dist;
 }
 
 //calculates the dot product of a vector
-float Pvector::dotProduct(Pvector v1, Pvector v2)
+float Pvector::dotProduct(Pvector v)
 {
-	float dot = v1.x * v2.x + v1.y * v2.y;
+	float dot = x * v.x + y * v.y;
 
 	return dot;
 }
@@ -50,19 +50,20 @@ float Pvector::magnitude()
 
 void Pvector::setMagnitude(float x)
 {
-	set(x / m, y / m);
+	normalize();
+	mulScalar(x);
 }
 
 //Calculate the angle between Pvector 1 and Pvector 2
-float Pvector::angleBetween(Pvector v1, Pvector v2)
+float Pvector::angleBetween(Pvector v)
 {
 	float pi = 3.141592635;
-	if (v1.x == 0 && v1.y == 0) return 0.0f;
-	if (v2.x == 0 && v2.y == 0) return 0.0f;
+	if (x == 0 && y == 0) return 0.0f;
+	if (v.x == 0 && v.y == 0) return 0.0f;
 
-	double dot = v1.x * v2.x + v1.y * v2.y;
-	double v1mag = sqrt(v1.x * v1.x + v1.y * v1.y); 
-	double v2mag = sqrt(v2.x * v2.x + v2.y * v2.y);
+	double dot = x * v.x + y * v.y;
+	double v1mag = sqrt(x * x + y * y); 
+	double v2mag = sqrt(v.x * v.x + v.y * v.y);
 	double amt = dot / (v1mag * v2mag); //Based of definition
 
 	if (amt <= -1) {
@@ -146,7 +147,14 @@ void Pvector::divScalar(float s)
 	y /= s;
 }
 
-Pvector Pvector::normalize( )
+void Pvector::subTwoVector(Pvector v, Pvector v2)
+{
+	v.x -= v2.x;
+	v.y -= v2.y;
+}
+
+
+void Pvector::normalize( )
 {
 	float m = magnitude();
 
@@ -158,7 +166,6 @@ Pvector Pvector::normalize( )
 	{
 		set(x, y);
 	}
-	return v;
 }
 
 void Pvector::limit(double max)

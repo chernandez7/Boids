@@ -10,7 +10,7 @@ class Pvector
 public:
 	float x;
 	float y;
-	//Initialized Pvector and sets values to 0. ?
+	//Initialized Pvector and sets values to 0 ?
 	Pvector()
 	{}
 	// Initializes Pvector with x and y components.
@@ -32,11 +32,11 @@ public:
 	void setV(Pvector v);
 
 	//Calculating Functions
-	float distance(Pvector v1, Pvector v2);
-	float dotProduct(Pvector v1, Pvector v2);
+	float distance(Pvector v);
+	float dotProduct(Pvector v);
 	float magnitude();
 	void setMagnitude(float x);
-	float angleBetween(Pvector v1, Pvector v2);
+	float angleBetween(Pvector v);
 
 	//Copy Function
 	Pvector copy(Pvector v);
@@ -44,16 +44,19 @@ public:
 	//Need to be able to add/subtract vectors
 	void addVector(Pvector v);
 	void addScalar(float x);
+
 	void subVector(Pvector v);
+	void subTwoVector(Pvector v, Pvector v2);
 	void subScalar(float x);
+
 	void mulVector(Pvector v);
 	void mulScalar(float x);
+
 	void divVector(Pvector v);
 	void divScalar(float x);
 
 	//Normalize
-	Pvector normalize();
-
+	void normalize();
 	void limit(double max);
 
 };
