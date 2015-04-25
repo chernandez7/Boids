@@ -16,19 +16,52 @@ using namespace std;
 
 int main()
 {
+	int width = 600, length = 400;
 	//Need to initialize window (Size can be changed later)
-    sf::RenderWindow window(sf::VideoMode(400, 600), "Boids");
+	sf::RenderWindow window(sf::VideoMode(length, width), "Boids", sf::Style::Default);
 
 	//Create flock and boids
+	Flock flock;
 
-	
-	
+	//10 boids as a test
+	for (int i = 0; i < 10; i++)
+	{
+		Boid b(length / 2, width / 2); //X and Y coordinate are half of window size (To start in the middle)
+		flock.addBoid(b);
+		//sf::CircleShape boid(length / 2, width / 2);
+		sf::CircleShape boid(rand() % length + 1, rand() % width + 1);
+		window.draw(boid);
+	}
 
-	//while(window.isOpen()) to keep program running
-	
-    return 0; 
+	while (window.isOpen())
+	{
+		window.clear(sf::Color::Black);
+
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			// "close requested" event: we close the window
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		//check for mouse click, draws and adds boid to flock if so.
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i mouseCoords = sf::Mouse::getPosition();
+			// left mouse button is pressed: shoot
+			Boid b(mouseCoords.x, mouseCoords.y);
+			flock.addBoid(b);
+			sf::CircleShape boid(mouseCoords.x, mouseCoords.y);
+			window.draw(boid);
+		}
+		//While window is open apply 3 rules to each boid in vector<boid>
+		flock.update();
+
+		window.display();
+	}
+	return 0;
+
 }
-
 
 /* 
 Part of SFML Test 
