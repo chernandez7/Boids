@@ -1,7 +1,7 @@
 ### To do ###
 * Implement PVector class that allows for functionality seen in example-Boids.cpp
 * Finish Pvector functions. (Need to figure out how to use location, acceleration, velocity)
-* Create main function and get a general idea of how the program will run.
+* Add functions to implement visualization in Boid (Run, Render, Update)
 
 ### Goals ###
 * General Layout: Create 2D application that simulates boids. Include functionality that allows us to change settings regarding boid behavior (e.g., velocity, flocking, etc). If time allows, predators.
