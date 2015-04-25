@@ -76,6 +76,12 @@ void Boid::changeMaxForce(float force)
 	maxForce = force;
 }
 
+void Boid::applyForce(Pvector force)
+{
+	acceleration.addVector(force);
+}
+
+
 Pvector Boid::seek(Pvector v)
 {
 	Pvector desired, steer;
@@ -208,4 +214,51 @@ void Boid::update()
 	location.addVector(velocity);
 	// Reset accelertion to 0 each cycle
 	acceleration.mulScalar(0);
+}
+
+void Boid::run(vector <Boid> v)
+{
+	flock(v);
+	update();
+	borders();
+	render();
+}
+
+void Boid::render()
+{
+
+}
+
+
+void Boid::flock(vector<Boid> v)
+{
+	Pvector sep = Separation(v);   // Separation
+	Pvector ali = Alignment(v);      // Alignment
+	Pvector coh = Cohesion(v);   // Cohesion
+	// Arbitrarily weight these forces
+	sep.mulScalar(1.5);
+	ali.mulScalar(1.0);
+	coh.mulScalar(1.0);
+	// Add the force vectors to acceleration
+	applyForce(sep);
+	applyForce(ali);
+	applyForce(coh);
+}
+
+
+void Boid::borders()
+{
+	/*r variable is ambiguous so will change it to 0 (r might be resolution)
+	length and width is hardcoded for the time being for testing purposes*/
+	if (location.x < 0) location.x = 600 + r; 
+	if (location.y < 0) location.y = 600 + r; 
+	if (location.x > 600) location.x = -r; 
+	if (location.y > 600) location.y = -r; 
+
+	/*
+	if (location.x < -r) location.x = width+r;
+    if (location.y < -r) location.y = height+r;
+    if (location.x > width+r) location.x = -r;
+    if (location.y > height+r) location.y = -r;
+	*/
 }

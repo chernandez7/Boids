@@ -1,35 +1,38 @@
 // This file acts as the main for our boids project. Here, we utilize the SFML
 // library, import boids and flock classes, and run the program.
-//#include <SFML/Graphics.hpp>
-#include <iostream>
+//#include <iostream>
 #include <vector>
 #include "Boid.h"
 #include "Pvector.h"
 #include "Flock.h"
-//#include "SFML\Window.hpp"
-//#include "SFML\Window\Mouse.hpp" //mouse functionality maybe?
+#include "SFML\Window.hpp"
 #include "SFML/Graphics.hpp"
-//#include "SFML\Main.hpp"
 
 
 using namespace std;
 
 int main()
 {
-	int width = 600, length = 400;
+	int width = 600, length = 600;
 	//Need to initialize window (Size can be changed later)
 	sf::RenderWindow window(sf::VideoMode(length, width), "Boids", sf::Style::Default);
+	window.setMouseCursorVisible(true);
+	window.setKeyRepeatEnabled(true);
+
 
 	//Create flock and boids
 	Flock flock;
 
-	//10 boids as a test
-	for (int i = 0; i < 10; i++)
+	//100 boids as a test
+	for (int i = 0; i < 100; i++)
 	{
-		Boid b(length / 2, width / 2); //X and Y coordinate are half of window size (To start in the middle)
+		Boid b(rand() % length + 1, rand() % width + 1); //X and Y coordinate are half of window size (To start in the middle)
 		flock.addBoid(b);
 		//sf::CircleShape boid(length / 2, width / 2);
-		sf::CircleShape boid(rand() % length + 1, rand() % width + 1);
+		sf::CircleShape boid(rand() % length + 1, rand() % width + 1 );
+		boid.setFillColor(sf::Color(255,255,255));
+		boid.setPointCount(3);
+		boid.setRadius(10);
 		window.draw(boid);
 	}
 
@@ -48,10 +51,12 @@ int main()
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2i mouseCoords = sf::Mouse::getPosition();
-			// left mouse button is pressed: shoot
 			Boid b(mouseCoords.x, mouseCoords.y);
 			flock.addBoid(b);
 			sf::CircleShape boid(mouseCoords.x, mouseCoords.y);
+			boid.setFillColor(sf::Color(255, 255, 255));
+			boid.setPointCount(3);
+			boid.setRadius(10);
 			window.draw(boid);
 		}
 		//While window is open apply 3 rules to each boid in vector<boid>

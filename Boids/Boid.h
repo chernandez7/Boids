@@ -65,6 +65,7 @@ public:
 	void changeR(float x);
 	void changeMaxSpeed(float speed);
 	void changeMaxForce(float force);
+	void applyForce(Pvector force);
 
 	//Need to add the 3 laws functions + .cpp functionality of them
 
@@ -76,7 +77,11 @@ public:
 	Pvector Cohesion(vector<Boid> Boids);
 
 	Pvector seek(Pvector v);
+	void run(vector <Boid> v);
+	void render();
 	void update();
+	void flock(vector <Boid> v);
+	void borders();
 
 };
 
