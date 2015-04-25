@@ -6,10 +6,10 @@
 #include "Boid.h"
 #include "Pvector.h"
 #include "Flock.h"
-#include "SFML\Window.hpp"
-#include "SFML\Window\Mouse.hpp" //mouse functionality maybe?
-#include "SFML\Graphics.hpp"
-#include "SFML\Main.hpp"
+//#include "SFML\Window.hpp"
+//#include "SFML\Window\Mouse.hpp" //mouse functionality maybe?
+#include "SFML/Graphics.hpp"
+//#include "SFML\Main.hpp"
 
 
 using namespace std;

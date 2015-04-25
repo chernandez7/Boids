@@ -110,7 +110,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 		//    with itself) and smaller than the desiredseparation, create a
 		//    Pvector that points away from all of the other boids
 
-		float d = distance(location, boids[i].location);
+		float d = location.distance(boids[i].location);
 
 		if ((d > 0) && (d < desiredseparation))
 		{
@@ -147,7 +147,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
-		float d = distance(location, Boids[i].location);
+		float d = location.distance(Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
 			sum.addVector(Boids[i].velocity);
@@ -181,7 +181,8 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
-		float d = distance(location, Boids[i].location);
+		float d = location.distance(Boids[i].location);
+		//float d = distance(location, Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
 			sum.addVector(Boids[i].location);
@@ -207,5 +208,4 @@ void Boid::update()
 	location.addVector(velocity);
 	// Reset accelertion to 0 each cycle
 	acceleration.mulScalar(0);
-
 }
