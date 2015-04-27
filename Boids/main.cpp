@@ -21,6 +21,7 @@ int main()
 	window.setKeyRepeatEnabled(true);
 	//window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
+	
 
 
 
@@ -28,31 +29,31 @@ int main()
 	Flock flock;
 	vector<sf::CircleShape> shapes;
 
-
+	float x = length / 2;
+	float y = width / 2;
 	//100 boids as a test
 	for (int i = 0; i < 100; i++)
 	{
 		//	Boid b(rand() % length , rand() % width ); //X and Y coordinate are half of window size (To start in the middle)
-		Boid b(length / 2, width / 2);
-		flock.addBoid(b);
-		sf::CircleShape shape(length / 2, width / 2);
+		Boid b(x,y);
+		//Boid *b = new Boid(x, y);
+		sf::CircleShape shape(10);
 		shape.setOutlineColor(sf::Color(255,0,0));
 		shape.setFillColor(sf::Color(255, 0, 0));
 		shape.setPointCount(3);
-		shape.setRadius(10);
+		shape.setRadius(8);
+		//shape.setPosition(length / 2, width / 2);
+		flock.addBoid(b);
 		shapes.push_back(shape);
 	}
 
 	while (window.isOpen())
-	{
-		//	window.clear(sf::Color::Black);
-
-		
+	{	
 
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			// "close requested" event: we close the window
+			//"close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
@@ -62,11 +63,14 @@ int main()
 		{
 			sf::Vector2i mouseCoords = sf::Mouse::getPosition();
 			Boid b(mouseCoords.x, mouseCoords.y);
-			flock.addBoid(b);
-			sf::CircleShape shape(mouseCoords.x, mouseCoords.y);
-			shape.setFillColor(sf::Color(255, 255, 255));
+			sf::CircleShape shape(10);
+			shape.setPosition(mouseCoords.x, mouseCoords.y);
+			shape.setOutlineColor(sf::Color(255, 0, 0));
+			shape.setFillColor(sf::Color(255, 0, 0));
 			shape.setPointCount(3);
-			shape.setRadius(30);
+			shape.setRadius(8);
+			//shape.setPosition(length / 2, width / 2);
+			flock.addBoid(b);
 			shapes.push_back(shape);
 			window.draw(shapes[shapes.size()-1]);
 		}
@@ -76,13 +80,14 @@ int main()
 		for (int i = 0; i < shapes.size(); i++)
 		{
 			window.draw(shapes[i]);
-			cout << "(" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
+			cout << "Boid "<< i <<" Coordinates: (" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
 			shapes[i].move(rand()%100, rand()%100);
+			//shapes[i].move(1, 1);
 
+			//shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
 		}
 
 		flock.flocking();
-
 		window.display();
 	}
 	return 0;

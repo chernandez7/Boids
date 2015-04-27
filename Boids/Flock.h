@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include "Boid.h"
-//#include <Flock.h>
 
 using namespace std;
 
@@ -15,12 +14,13 @@ using namespace std;
 class Flock
 {
 private:
-	vector<Boid> flock;
 
 public:
+	vector<Boid> flock;
+
 	Flock()
 	{
-		//flock = new vector<Boid>();
+		//vector<Boid> flock;
 	}
 
 	Flock::~Flock()
@@ -34,6 +34,7 @@ public:
 	void addBoid(Boid b);
 	int getSize();
 	void flocking();
+	Boid getBoid(int i);
 };
 
 #endif

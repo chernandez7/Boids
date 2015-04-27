@@ -24,3 +24,8 @@ void Flock::flocking()
 		flock[i].run(flock);
 	}
 }
+
+Boid Flock::getBoid(int i)
+{
+	return flock[i];
+}

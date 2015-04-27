@@ -12,7 +12,11 @@ public:
 	float y;
 	//Initialized Pvector and sets values to 0 ?
 	Pvector()
-	{}
+	{
+		//int* x = new int;
+		//int* y = new int;
+		
+	}
 	// Initializes Pvector with x and y components.
 	Pvector(float xComp, float yComp)
 	{

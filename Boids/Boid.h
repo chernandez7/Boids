@@ -9,8 +9,8 @@ using namespace std;
 class Boid
 {
 public:
-	float x;
-	float y;
+	//float x;
+	//float y;
 
 	//location (Pvector)
 	Pvector location;
@@ -24,16 +24,24 @@ public:
 	float maxForce;
 	float r; // Field of Vision?
 
-
+	Boid()
+	{
+		//int* x = new int;
+		//int* y = new int;
+	}
 
 	Boid(float x, float y)
 	{
 		//initialize acceleration
-		Pvector acceleration(0, 0);
+		//Pvector acceleration(0, 0);
+		Pvector* acceleration = new Pvector(0, 0);
 		//initialize velocity
-		Pvector velocity(0, 0);
+		//Pvector velocity(0, 0);
+		Pvector* velocity = new Pvector(0, 0);
 		//initialize location
-		Pvector location(x, y);
+	//	Pvector location(x, y);
+
+		Pvector* location = new Pvector(x, y);
 		//initialize r
 		r = 0;
 		//initialize max speed
@@ -60,6 +68,9 @@ public:
 	float getMaxSpeed();
 	float getMaxForce();
 	*/
+
+//	void setX(int i);
+	//void setY(int i);
 
 	//Mutator Functions
 	void changeVelocity(float speed);

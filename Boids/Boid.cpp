@@ -250,10 +250,10 @@ void Boid::borders()
 {
 	/*r variable is ambiguous so will change it to 0 (r might be resolution)
 	length and width is hardcoded for the time being for testing purposes*/
-	if (location.x < 0) location.x = 600 + r; 
-	if (location.y < 0) location.y = 600 + r; 
-	if (location.x > 600) location.x = -r; 
-	if (location.y > 600) location.y = -r; 
+	if (location.x < 0) location.x += 600; 
+	if (location.y < 0) location.y += 600; 
+	if (location.x > 600) location.x -= 600; 
+	if (location.y > 600) location.y -= -600; 
 
 	/*
 	if (location.x < -r) location.x = width+r;
