@@ -1,6 +1,5 @@
 ### To do ###
-* Implement PVector class that allows for functionality seen in example-Boids.cpp
-* Finish Pvector functions. (Need to figure out how to use location, acceleration, velocity)
+* Fix errors involving the passing of values, visualization, linking actual code to SFML.
 * Add functions to implement visualization in Boid (Run, Render, Update)
 
 ### Goals ###
