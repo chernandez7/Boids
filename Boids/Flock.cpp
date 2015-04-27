@@ -16,3 +16,11 @@ int Flock::getSize()
 {
 	return flock.size();
 }
+
+void Flock::flocking()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].run(flock);
+	}
+}

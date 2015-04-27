@@ -9,6 +9,9 @@ using namespace std;
 class Boid
 {
 public:
+	float x;
+	float y;
+
 	//location (Pvector)
 	Pvector location;
 	//velocity (Pvector)
@@ -30,7 +33,7 @@ public:
 		//initialize velocity
 		Pvector velocity(0, 0);
 		//initialize location
-		Pvector location(0, 0);
+		Pvector location(x, y);
 		//initialize r
 		r = 0;
 		//initialize max speed
