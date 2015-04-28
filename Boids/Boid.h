@@ -33,11 +33,11 @@ public:
 		//Pvector* acceleration = new Pvector(0, 0);
 		acceleration = Pvector(0, 0);
 		//Pvector* velocity = new Pvector(0, 0);
-		velocity = Pvector(0, 0);
+		velocity = Pvector(rand()%2-1, rand()%2-1);
 		//Pvector* location = new Pvector(x, y);
 		location = Pvector(x, y);
-		maxSpeed = 3;
-		maxForce = 2;
+		maxSpeed = 2;
+		maxForce = 1;
 	}
 
 	//Destructor
@@ -57,7 +57,6 @@ public:
 	//Functions involving SFML and visualisation linking
 	Pvector seek(Pvector v);
 	void run(vector <Boid> v);
-	void render();
 	void update();
 	void flock(vector <Boid> v);
 	void borders();

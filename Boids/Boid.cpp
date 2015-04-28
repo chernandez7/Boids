@@ -22,13 +22,13 @@ void Boid::applyForce(Pvector force)
 // of a boid of it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
-	float desiredseparation = 50.0; //Changed for testing
+	float desiredseparation = 25.0; //Changed for testing
 
 	//***instances of steer have been replaced with acceleration
 	//Not sure if 100% correct.
 
 	//Locally defined Not needed Replaced with acceleration
-	//Pvector steer(0, 0);
+	Pvector steer(0, 0);
 
 
 
@@ -56,24 +56,24 @@ Pvector Boid::Separation(vector<Boid> boids)
 			diff = diff.subTwoVector(location,boids[i].location); 
 			diff.normalize();
 			diff.divScalar(d);        // Weight by distance
-			acceleration.addVector(diff);
+			steer.addVector(diff);
 			count++;
 		}
 	}
 
 	if (count >0)
 	{
-		acceleration.divScalar((float)count); //adds average difference of location to acceleration
+		steer.divScalar((float)count); //adds average difference of location to acceleration
 	}
-	if (acceleration.magnitude() > 0) 
+	if (steer.magnitude() > 0) 
 	{
 		// Steering = Desired - Velocity
-		acceleration.normalize();
-		acceleration.mulScalar(maxSpeed);
-		acceleration.subVector(velocity);
-		acceleration.limit(maxForce);
+		steer.normalize();
+		steer.mulScalar(maxSpeed);
+		steer.subVector(velocity);
+		steer.limit(maxForce);
 	}
-	return acceleration;
+	return steer;
 }
 
 // Alignment calculates the average velocity in the field of view and 
@@ -81,7 +81,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 // of nearby boids.
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
-	float neighbordist = 100;
+	float neighbordist = 50;
 
 	//***Replaced some instances of sum with velocity
 	//not 100% sure on this.
@@ -121,10 +121,10 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
-	float neighbordist = 100;
+	float neighbordist = 50;
 
 	//Locally defined
-	//Pvector sum(0, 0);
+	Pvector sum(0, 0);
 	
 	
 	
@@ -134,14 +134,14 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 		float d = location.distance(Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
-			acceleration.addVector(Boids[i].location); //changed
+			sum.addVector(Boids[i].location); //changed
 			count++;
 		}
 	}
 	if (count > 0)
 	{
-		acceleration.divScalar(count); //acceleration instead of sum
-		return seek(acceleration);
+		sum.divScalar(count); //acceleration instead of sum
+		return seek(sum);
 	} else {
 		Pvector temp(0,0);
 		return temp;
@@ -184,14 +184,6 @@ void Boid::run(vector <Boid> v)
 	flock(v);
 	update();
 	borders();
-	render();
-}
-
-
-//TBD
-void Boid::render()
-{
-
 }
 
 //Applies all three laws for the flock of boids and modifies to keep them from
@@ -203,7 +195,7 @@ void Boid::flock(vector<Boid> v) //flock has a size of 1 which causes results to
 	Pvector coh = Cohesion(v);   // Cohesion
 	// Arbitrarily weight these forces
 	sep.mulScalar(1.5);
-	ali.mulScalar(1.0);
+	ali.mulScalar(1.0); //might need to alter weights
 	coh.mulScalar(1.0);
 	// Add the force vectors to acceleration
 	applyForce(sep);
@@ -218,5 +210,5 @@ void Boid::borders()
 	if (location.x < 0) location.x += 600; 
 	if (location.y < 0) location.y += 600; 
 	if (location.x > 600) location.x -= 600; 
-	if (location.y > 600) location.y -= -600; 
+	if (location.y > 600) location.y -= 600; 
 }
