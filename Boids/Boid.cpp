@@ -11,17 +11,6 @@ using namespace std;
 // =============================================== //
 
 
-// Manipulate Max Speed
-void Boid::changeMaxSpeed(float speed)
-{
-	maxSpeed = speed;
-}
-
-// Manipulate Max Force
-void Boid::changeMaxForce(float force)
-{
-	maxForce = force;
-}
 
 //Adds force Pvector to current force Pvector
 void Boid::applyForce(Pvector force)
@@ -33,8 +22,16 @@ void Boid::applyForce(Pvector force)
 // of a boid of it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
-	float desiredseparation = 25.0;
-	Pvector steer(0, 0);
+	float desiredseparation = 50.0; //Changed for testing
+
+	//***instances of steer have been replaced with acceleration
+	//Not sure if 100% correct.
+
+	//Locally defined Not needed Replaced with acceleration
+	//Pvector steer(0, 0);
+
+
+
 	int count = 0;
 	// For every boid in the system, check if it's too close
 	for (int i = 0; i < boids.size(); i++)
@@ -48,30 +45,35 @@ Pvector Boid::Separation(vector<Boid> boids)
 
 		float d = location.distance(boids[i].location);
 
-		if ((d > 0) && (d < desiredseparation))
+		if ((d > 0) && (d < desiredseparation)) //0 < d < 25
 		{
-			Pvector diff;
-			diff.subVector(boids[i].location);
+
+
+			//Locally defined but needed for storing the difference
+			Pvector diff(0,0);
+		
+			
+			diff = diff.subTwoVector(location,boids[i].location); 
 			diff.normalize();
 			diff.divScalar(d);        // Weight by distance
-			steer.addVector(diff);
+			acceleration.addVector(diff);
 			count++;
 		}
 	}
 
 	if (count >0)
 	{
-		steer.divScalar((float)count);
+		acceleration.divScalar((float)count); //adds average difference of location to acceleration
 	}
-	if (steer.magnitude() > 0) 
+	if (acceleration.magnitude() > 0) 
 	{
 		// Steering = Desired - Velocity
-		steer.normalize();
-		steer.mulScalar(maxSpeed);
-		steer.subVector(velocity);
-		steer.limit(maxForce);
+		acceleration.normalize();
+		acceleration.mulScalar(maxSpeed);
+		acceleration.subVector(velocity);
+		acceleration.limit(maxForce);
 	}
-	return steer;
+	return acceleration;
 }
 
 // Alignment calculates the average velocity in the field of view and 
@@ -79,13 +81,19 @@ Pvector Boid::Separation(vector<Boid> boids)
 // of nearby boids.
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
-	float neighbordist = 50;
+	float neighbordist = 100;
+
+	//***Replaced some instances of sum with velocity
+	//not 100% sure on this.
+	//Locally defined
 	Pvector sum(0, 0);
+	
+	
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
 		float d = location.distance(Boids[i].location);
-		if ((d > 0) && (d < neighbordist))
+		if ((d > 0) && (d < neighbordist)) //0 < d < 50
 		{
 			sum.addVector(Boids[i].velocity);
 			count++;
@@ -94,13 +102,13 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 	// If there are boids close enough for alignment...
 	if (count > 0)
 	{
-		sum.divScalar((float)count); 		// Divide sum by the number of close boids
+		sum.divScalar((float)count); 		// Divide sum by the number of close boids (average of velocity)
 		sum.normalize();	   		// Turn sum into a unit vector, and
 		sum.mulScalar(maxSpeed);    // Multiply by maxSpeed
 		// Now we create the steer Pvector, which we'll return
 		// Steer = Desired - Velocity
-		Pvector steer;
-		steer = steer.subTwoVector(sum, velocity);
+		Pvector steer; 
+		steer = steer.subTwoVector(sum, velocity); //sum = desired(average)  
 		steer.limit(maxForce);
 		return steer;
 	} else {
@@ -113,22 +121,27 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
-	float neighbordist = 50;
-	Pvector sum(0, 0);
+	float neighbordist = 100;
+
+	//Locally defined
+	//Pvector sum(0, 0);
+	
+	
+	
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
 		float d = location.distance(Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
-			sum.addVector(Boids[i].location);
+			acceleration.addVector(Boids[i].location); //changed
 			count++;
 		}
 	}
 	if (count > 0)
 	{
-		sum.divScalar(count);
-		return seek(sum);
+		acceleration.divScalar(count); //acceleration instead of sum
+		return seek(acceleration);
 	} else {
 		Pvector temp(0,0);
 		return temp;
@@ -138,15 +151,16 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 //Seek function limits the maxSpeed, finds necessary steering force and normalizes the vectors.
 Pvector Boid::seek(Pvector v)
 {
-	Pvector desired, steer;
+	Pvector desired;
+	//Pvector steer; Acceleration instead ?
 	desired.subVector(v);  // A vector pointing from the location to the target
 	// Normalize desired and scale to maximum speed
 	desired.normalize();
 	desired.mulScalar(maxSpeed);
 	// Steering = Desired minus Velocity
-	steer.subTwoVector(desired, velocity);
-	steer.limit(maxForce);  // Limit to maximum steering force
-	return steer;
+	acceleration.subTwoVector(desired, velocity);
+	acceleration.limit(maxForce);  // Limit to maximum steering force
+	return acceleration;
 }
 
 //Update modifies velocity, location, and resets acceleration with values that
@@ -182,7 +196,7 @@ void Boid::render()
 
 //Applies all three laws for the flock of boids and modifies to keep them from
 //breaking the laws.
-void Boid::flock(vector<Boid> v)
+void Boid::flock(vector<Boid> v) //flock has a size of 1 which causes results to be 0 each time ?
 {
 	Pvector sep = Separation(v);   // Separation
 	Pvector ali = Alignment(v);      // Alignment

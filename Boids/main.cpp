@@ -11,18 +11,29 @@ using namespace std;
 /*
 Breif description of Boid Class:
 // This file acts as the main for our boids project. Here, we utilize the SFML
-// library, import boids and flock classes, and run the program.
+// library, import boids and flock classes, and run the program.-
 */
 
 int main()
 {
+	/*
+	//Debugging for Pvector properties
+	Pvector test(0, 0);
+	Pvector test2(2, 2);
+	test.addVector(test2);
+	test.set(7, 7); 
+	Boid testt(3,2);
+	testt.location.addVector(test);
+	testt.acceleration.divScalar(5);
+	*/
+
 	int width = 600, length = 600;
 	//Need to initialize window (600 width and length, 100 bytes per pixel)
 	sf::RenderWindow window(sf::VideoMode(length, width, 1000), "Boids", sf::Style::Default);
 	window.setMouseCursorVisible(true);
 	window.setKeyRepeatEnabled(true);
 	//window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(true);
+	//window.setVerticalSyncEnabled(true);
 
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
@@ -34,14 +45,15 @@ int main()
 	//100 boids as a test
 	for (int i = 0; i < 10; i++)
 	{
-		Boid b(x,y);
+		Boid b(rand()%200,rand()%200);
 		//Boid *b = new Boid(x, y);
 		sf::CircleShape shape(10);
 		shape.setOutlineColor(sf::Color(255,0,0));
-		shape.setFillColor(sf::Color(255, 0, 0));
-		shape.setPointCount(3);
+		shape.setFillColor(sf::Color::Green);
+		//shape.setFillColor(sf::Color(255, 0, 0));
+		//shape.setPointCount(3);
 		shape.setRadius(8);
-		//shape.setPosition(length / 2, width / 2);
+		shape.setPosition(b.location.x, b.location.y);
 		flock.addBoid(b);
 		shapes.push_back(shape);
 	}
@@ -83,10 +95,14 @@ int main()
 			window.draw(shapes[i]);
 			cout << "Boid "<< i <<" Coordinates: (" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
 			cout << "Boid Code " << i << " Location: (" << flock.getBoid(i).location.x << ", " << flock.getBoid(i).location.y << ")" << endl;
-			shapes[i].move(rand()%100, rand()%100);
-			//shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			//shapes[i].move(rand()%200-100, rand()%200-100);
+			//shapes[i].move(rand()%25, rand()%25);
+
+			shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			//flock.getBoid(i).location.set(shapes[i].getPosition().x, shapes[i].getPosition().y);
+			/*Either set shape to object or vice versa*/
 			
-			//SFML brute force way of wrapping around
+			//SFML a brute force way of wrapping around
 			if (shapes[i].getPosition().x >600 || shapes[i].getPosition().x <0 || shapes[i].getPosition().y >600 || shapes[i].getPosition().y < 0)
 			{
 				if (shapes[i].getPosition().x >600)

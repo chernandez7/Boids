@@ -8,10 +8,10 @@ using namespace std;
 
 
 //Sets values fo x and y for Pvector
-void Pvector::set(float x, float y)
+void Pvector::set(float i, float o)
 {
-	x= x;
-	y = y;
+	x= i;
+	y = o;
 }
 
 void Pvector::addVector(Pvector v)

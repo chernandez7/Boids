@@ -30,9 +30,12 @@ public:
 
 	Boid(float x, float y)
 	{
-		Pvector* acceleration = new Pvector(0, 0);
-		Pvector* velocity = new Pvector(0, 0);
-		Pvector* location = new Pvector(x, y);
+		//Pvector* acceleration = new Pvector(0, 0);
+		acceleration = Pvector(0, 0);
+		//Pvector* velocity = new Pvector(0, 0);
+		velocity = Pvector(0, 0);
+		//Pvector* location = new Pvector(x, y);
+		location = Pvector(x, y);
 		maxSpeed = 3;
 		maxForce = 2;
 	}
@@ -44,8 +47,6 @@ public:
 	}
 	
 	//Mutator Functions
-	void changeMaxSpeed(float speed);
-	void changeMaxForce(float force);
 	void applyForce(Pvector force);
 
 	//Three Laws that boids follow
