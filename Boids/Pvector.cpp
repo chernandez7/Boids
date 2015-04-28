@@ -5,7 +5,7 @@ using namespace std;
 // ==================================================== //
 // ======== Pvector Functions from Pvector.h ========= //
 // ==================================================== //
-
+#define PI 3.141592635
 
 //Sets values fo x and y for Pvector
 void Pvector::set(float i, float o)
@@ -123,7 +123,6 @@ void Pvector::setMagnitude(float x)
 //Calculate the angle between Pvector 1 and Pvector 2
 float Pvector::angleBetween(Pvector v)
 {
-	float pi = 3.141592635;
 	if (x == 0 && y == 0) return 0.0f;
 	if (v.x == 0 && v.y == 0) return 0.0f;
 
@@ -133,7 +132,7 @@ float Pvector::angleBetween(Pvector v)
 	double amt = dot / (v1mag * v2mag); //Based of definition of dot product
 	//dot product / product of magnitudes gives amt
 	if (amt <= -1) {
-		return pi; 
+		return PI; 
 	}
 	else if (amt >= 1) {
 		return 0;

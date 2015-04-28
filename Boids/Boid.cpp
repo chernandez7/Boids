@@ -7,12 +7,12 @@
 #include "Boid.h"
 
 sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode();
-
 const int window_height = desktopTemp.height;
 const int window_width = desktopTemp.width;
 
 #define w_height window_height
 #define w_width window_width
+#define PI 3.141592635
 
 using namespace std;
 
@@ -32,7 +32,7 @@ void Boid::applyForce(Pvector force)
 // of a boid of it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
-	float desiredseparation = 25.0; //Changed for testing
+	float desiredseparation = 25; //Changed for testing
 
 	//***instances of steer have been replaced with acceleration
 	//Not sure if 100% correct.
@@ -158,6 +158,12 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	}
 }
 
+float Boid::angle(Pvector v)
+{
+	float angle = (float)(atan2(v.x, -v.y) * 180 / PI);
+	return angle;
+}
+
 //Seek function limits the maxSpeed, finds necessary steering force and normalizes the vectors.
 Pvector Boid::seek(Pvector v)
 {
@@ -177,7 +183,8 @@ Pvector Boid::seek(Pvector v)
 //are given by the three laws.
 void Boid::update()
 {
-	acceleration.mulScalar(.6);
+	//To make the slow sown not as abrupt
+	acceleration.mulScalar(.4);
 	// Update velocity
 	velocity.addVector(acceleration);
 	// Limit speed
@@ -199,7 +206,7 @@ void Boid::run(vector <Boid> v)
 
 //Applies all three laws for the flock of boids and modifies to keep them from
 //breaking the laws.
-void Boid::flock(vector<Boid> v) //flock has a size of 1 which causes results to be 0 each time ?
+void Boid::flock(vector<Boid> v) 
 {
 	Pvector sep = Separation(v);   // Separation
 	Pvector ali = Alignment(v);      // Alignment

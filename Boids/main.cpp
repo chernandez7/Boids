@@ -52,20 +52,20 @@ int main()
 
 
 	//100 boids as a test
-	for (int i = 0; i < 150; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		//Boid b(rand()%1000,rand()%1000);
-		Boid b(window_width / 2, window_height / 2);
+		Boid b(rand()%window_width,rand()%window_height);
+		//Boid b(window_width / 2, window_height / 2);
 
 		//Boid *b = new Boid(x, y);
-		sf::CircleShape shape(10);
+		sf::CircleShape shape(10,3);
 		shape.setOutlineColor(sf::Color(255,0,0));
 		shape.setFillColor(sf::Color::Green);
 		shape.setOutlineColor(sf::Color::White);
 		shape.setOutlineThickness(1);
 		//shape.setFillColor(sf::Color(255, 0, 0));
 		//shape.setPointCount(3);
-		shape.setRadius(3);
+		shape.setRadius(5);
 		shape.setPosition(b.location.x, b.location.y);
 		//shape.setPosition(window_width / 2, window_height / 2);
 		flock.addBoid(b);
@@ -89,17 +89,17 @@ int main()
 		{
 			sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
 			Boid b(mouseCoords.x, mouseCoords.y);
-			sf::CircleShape shape(10);
+			sf::CircleShape shape(10,3);
 			shape.setPosition(mouseCoords.x, mouseCoords.y);
 			shape.setOutlineColor(sf::Color(255, 0, 0));
 			shape.setFillColor(sf::Color(255, 0, 0));
-			shape.setPointCount(3);
 			shape.setOutlineColor(sf::Color::White);
 			shape.setOutlineThickness(1);
-			shape.setRadius(3);
+			shape.setRadius(5);
 			//shape.setPosition(length / 2, width / 2);
 			flock.addBoid(b);
 			shapes.push_back(shape);
+			//shapes[shapes.size()-1].rotate(shapes[shapes.size()-1].getPosition().y - shapes[shapes.size()-1].getPosition().x); //Rotates triangles to start off pointing where they are going
 			window.draw(shapes[shapes.size()-1]);
 		}
 
@@ -116,6 +116,12 @@ int main()
 			//shapes[i].move(rand()%25, rand()%25);
 
 			shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+
+			float theta;
+			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
+			shapes[i].setRotation(theta);
+			
+
 			//flock.getBoid(i).location.set(shapes[i].getPosition().x, shapes[i].getPosition().y);
 			/*Either set shape to object or vice versa*/
 			
