@@ -13,6 +13,10 @@ Breif description of Boid Class:
 // This file acts as the main for our boids project. Here, we utilize the SFML
 // library, import boids and flock classes, and run the program.-
 */
+sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+
+const int window_height = desktop.height;
+const int window_width = desktop.width;
 
 int main()
 {
@@ -26,10 +30,15 @@ int main()
 	testt.location.addVector(test);
 	testt.acceleration.divScalar(5);
 	*/
+	
 
-	int width = 600, length = 600;
+
+	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::None);
+
+
+	//int width = 600, length = 600;
 	//Need to initialize window (600 width and length, 100 bytes per pixel)
-	sf::RenderWindow window(sf::VideoMode(), "Boids", sf::Style::Fullscreen);
+	//sf::RenderWindow window(sf::VideoMode(), "Boids", sf::Style::Fullscreen);
 	window.setMouseCursorVisible(true);
 	window.setKeyRepeatEnabled(true);
 	//window.setFramerateLimit(60);
@@ -39,10 +48,15 @@ int main()
 	Flock flock;
 	vector<sf::CircleShape> shapes;
 
+
+
+
 	//100 boids as a test
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 150; i++)
 	{
-		Boid b(rand()%400,rand()%400);
+		//Boid b(rand()%1000,rand()%1000);
+		Boid b(window_width / 2, window_height / 2);
+
 		//Boid *b = new Boid(x, y);
 		sf::CircleShape shape(10);
 		shape.setOutlineColor(sf::Color(255,0,0));
@@ -53,6 +67,7 @@ int main()
 		//shape.setPointCount(3);
 		shape.setRadius(3);
 		shape.setPosition(b.location.x, b.location.y);
+		//shape.setPosition(window_width / 2, window_height / 2);
 		flock.addBoid(b);
 		shapes.push_back(shape);
 	}
@@ -64,7 +79,8 @@ int main()
 		while (window.pollEvent(event))
 		{
 			//"close requested" event: we close the window
-			if (event.type == sf::Event::Closed)
+			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::BackSpace) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::X))
+				
 				window.close();
 		}
 
@@ -103,26 +119,31 @@ int main()
 			//flock.getBoid(i).location.set(shapes[i].getPosition().x, shapes[i].getPosition().y);
 			/*Either set shape to object or vice versa*/
 			
+
+			
 			//SFML a brute force way of wrapping around
-			if (shapes[i].getPosition().x >600 || shapes[i].getPosition().x <0 || shapes[i].getPosition().y >600 || shapes[i].getPosition().y < 0)
+			if (shapes[i].getPosition().x >window_width || shapes[i].getPosition().x <0 || shapes[i].getPosition().y > window_height || shapes[i].getPosition().y < 0)
 			{
-				if (shapes[i].getPosition().x >600)
+				if (shapes[i].getPosition().x >window_width)
 				{
-					shapes[i].setPosition(shapes[i].getPosition().x - 600, shapes[i].getPosition().y);
+					shapes[i].setPosition(shapes[i].getPosition().x - window_width, shapes[i].getPosition().y);
 				}
-				if (shapes[i].getPosition().y > 600)
+				if (shapes[i].getPosition().y > window_height)
 				{
-					shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y-600);
+					shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y - window_height);
 				}
 				if (shapes[i].getPosition().x <0)
 				{
-					shapes[i].setPosition(shapes[i].getPosition().x + 600, shapes[i].getPosition().y);
+					shapes[i].setPosition(shapes[i].getPosition().x + window_width, shapes[i].getPosition().y);
 				}
 				if (shapes[i].getPosition().y < 0)
 				{
-					shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y+600);
+					shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y + window_height);
 				}
 			}
+			
+
+
 
 
 		}

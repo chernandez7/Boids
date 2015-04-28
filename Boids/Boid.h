@@ -24,6 +24,7 @@ public:
 	Pvector acceleration;
 	float maxSpeed;
 	float maxForce;
+	
 
 	//Constructors
 	Boid(){}
@@ -37,7 +38,7 @@ public:
 		//Pvector* location = new Pvector(x, y);
 		location = Pvector(x, y);
 		maxSpeed = 2;
-		maxForce = 1;
+		maxForce = 0.5;
 	}
 
 	//Destructor

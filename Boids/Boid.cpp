@@ -3,7 +3,17 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <SFML\Window.hpp>
 #include "Boid.h"
+
+sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode();
+
+const int window_height = desktopTemp.height;
+const int window_width = desktopTemp.width;
+
+#define w_height window_height
+#define w_width window_width
+
 using namespace std;
 
 // =============================================== //
@@ -167,6 +177,7 @@ Pvector Boid::seek(Pvector v)
 //are given by the three laws.
 void Boid::update()
 {
+	acceleration.mulScalar(.6);
 	// Update velocity
 	velocity.addVector(acceleration);
 	// Limit speed
@@ -206,9 +217,11 @@ void Boid::flock(vector<Boid> v) //flock has a size of 1 which causes results to
 //Checks if boids go out of the window and if so, wraps them around to the other side.
 void Boid::borders()
 {
+
+	
 	//length and width are both 600
-	if (location.x < 0) location.x += 600; 
-	if (location.y < 0) location.y += 600; 
-	if (location.x > 600) location.x -= 600; 
-	if (location.y > 600) location.y -= 600; 
+	if (location.x < 0) location.x += w_width; 
+	if (location.y < 0) location.y += w_height;
+	if (location.x > 1000) location.x -= w_width;
+	if (location.y > 1000) location.y -= w_height;
 }
