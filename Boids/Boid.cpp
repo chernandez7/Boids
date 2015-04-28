@@ -6,7 +6,8 @@
 #include <SFML\Window.hpp>
 #include "Boid.h"
 
-sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode();
+//Global Variables for borders()
+sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode(); //Gets screen resolution of PC running the program
 const int window_height = desktopTemp.height;
 const int window_width = desktopTemp.width;
 
@@ -32,16 +33,9 @@ void Boid::applyForce(Pvector force)
 // of a boid of it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
-	float desiredseparation = 25; //Changed for testing
+	float desiredseparation = 25; //Distance of field of vision for separation between boids
 
-	//***instances of steer have been replaced with acceleration
-	//Not sure if 100% correct.
-
-	//Locally defined Not needed Replaced with acceleration
 	Pvector steer(0, 0);
-
-
-
 	int count = 0;
 	// For every boid in the system, check if it's too close
 	for (int i = 0; i < boids.size(); i++)
@@ -55,13 +49,9 @@ Pvector Boid::Separation(vector<Boid> boids)
 
 		float d = location.distance(boids[i].location);
 
-		if ((d > 0) && (d < desiredseparation)) //0 < d < 25
+		if ((d > 0) && (d < desiredseparation))
 		{
-
-
-			//Locally defined but needed for storing the difference
 			Pvector diff(0,0);
-		
 			
 			diff = diff.subTwoVector(location,boids[i].location); 
 			diff.normalize();
@@ -70,7 +60,6 @@ Pvector Boid::Separation(vector<Boid> boids)
 			count++;
 		}
 	}
-
 	if (count >0)
 	{
 		steer.divScalar((float)count); //adds average difference of location to acceleration
@@ -93,12 +82,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 {
 	float neighbordist = 50;
 
-	//***Replaced some instances of sum with velocity
-	//not 100% sure on this.
-	//Locally defined
-	Pvector sum(0, 0);
-	
-	
+	Pvector sum(0, 0);	
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
@@ -133,24 +117,20 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 {
 	float neighbordist = 50;
 
-	//Locally defined
-	Pvector sum(0, 0);
-	
-	
-	
+	Pvector sum(0, 0);	
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++)
 	{
 		float d = location.distance(Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
-			sum.addVector(Boids[i].location); //changed
+			sum.addVector(Boids[i].location);
 			count++;
 		}
 	}
 	if (count > 0)
 	{
-		sum.divScalar(count); //acceleration instead of sum
+		sum.divScalar(count);
 		return seek(sum);
 	} else {
 		Pvector temp(0,0);
@@ -158,17 +138,10 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	}
 }
 
-float Boid::angle(Pvector v)
-{
-	float angle = (float)(atan2(v.x, -v.y) * 180 / PI);
-	return angle;
-}
-
 //Seek function limits the maxSpeed, finds necessary steering force and normalizes the vectors.
 Pvector Boid::seek(Pvector v)
 {
 	Pvector desired;
-	//Pvector steer; Acceleration instead ?
 	desired.subVector(v);  // A vector pointing from the location to the target
 	// Normalize desired and scale to maximum speed
 	desired.normalize();
@@ -183,7 +156,7 @@ Pvector Boid::seek(Pvector v)
 //are given by the three laws.
 void Boid::update()
 {
-	//To make the slow sown not as abrupt
+	//To make the slow down not as abrupt
 	acceleration.mulScalar(.4);
 	// Update velocity
 	velocity.addVector(acceleration);
@@ -213,7 +186,7 @@ void Boid::flock(vector<Boid> v)
 	Pvector coh = Cohesion(v);   // Cohesion
 	// Arbitrarily weight these forces
 	sep.mulScalar(1.5);
-	ali.mulScalar(1.0); //might need to alter weights
+	ali.mulScalar(1.0); //might need to alter weights for different characteristics
 	coh.mulScalar(1.0);
 	// Add the force vectors to acceleration
 	applyForce(sep);
@@ -224,11 +197,15 @@ void Boid::flock(vector<Boid> v)
 //Checks if boids go out of the window and if so, wraps them around to the other side.
 void Boid::borders()
 {
-
-	
-	//length and width are both 600
 	if (location.x < 0) location.x += w_width; 
 	if (location.y < 0) location.y += w_height;
 	if (location.x > 1000) location.x -= w_width;
 	if (location.y > 1000) location.y -= w_height;
+}
+
+//Calculates the angle for the velocity of a boid which allows the visual image to rotate in the direction that it is going in.
+float Boid::angle(Pvector v)
+{
+	float angle = (float)(atan2(v.x, -v.y) * 180 / PI); // using Dot-product definition
+	return angle;
 }

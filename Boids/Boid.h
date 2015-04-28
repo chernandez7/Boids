@@ -31,11 +31,8 @@ public:
 
 	Boid(float x, float y)
 	{
-		//Pvector* acceleration = new Pvector(0, 0);
 		acceleration = Pvector(0, 0);
-		//Pvector* velocity = new Pvector(0, 0);
 		velocity = Pvector(rand()%3-2, rand()%3-2); //Allows for range of -2 -> 2
-		//Pvector* location = new Pvector(x, y);
 		location = Pvector(x, y);
 		maxSpeed = 3.5;
 		maxForce = 0.5;
@@ -56,12 +53,12 @@ public:
 	Pvector Cohesion(vector<Boid> Boids);
 
 	//Functions involving SFML and visualisation linking
-	float angle(Pvector v);
 	Pvector seek(Pvector v);
 	void run(vector <Boid> v);
 	void update();
 	void flock(vector <Boid> v);
 	void borders();
+	float angle(Pvector v);
 };
 
 #endif

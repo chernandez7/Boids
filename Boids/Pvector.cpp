@@ -7,7 +7,7 @@ using namespace std;
 // ==================================================== //
 #define PI 3.141592635
 
-//Sets values fo x and y for Pvector
+//Sets values of x and y for Pvector
 void Pvector::set(float i, float o)
 {
 	x= i;

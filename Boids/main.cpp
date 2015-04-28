@@ -13,61 +13,36 @@ Breif description of Boid Class:
 // This file acts as the main for our boids project. Here, we utilize the SFML
 // library, import boids and flock classes, and run the program.-
 */
-sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-
-const int window_height = desktop.height;
-const int window_width = desktop.width;
 
 int main()
 {
-	/*
-	//Debugging for Pvector properties
-	Pvector test(0, 0);
-	Pvector test2(2, 2);
-	test.addVector(test2);
-	test.set(7, 7); 
-	Boid testt(3,2);
-	testt.location.addVector(test);
-	testt.acceleration.divScalar(5);
-	*/
+	//Gets the resolution, size, and bits per pixel for the screen of the PC that is running this program.
+	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+	const int window_height = desktop.height;
+	const int window_width = desktop.width;
+
+	//Having the style of "None" gives a false-fullscreen effect for easier closing and access.
+	//No FPS limit of V-sync setting needed for it may cause unnecessary slowdown.
+	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::None); 
 	
-
-
-	sf::RenderWindow window(sf::VideoMode(desktop.width, desktop.height, desktop.bitsPerPixel), "Boids", sf::Style::None);
-
-
-	//int width = 600, length = 600;
-	//Need to initialize window (600 width and length, 100 bytes per pixel)
-	//sf::RenderWindow window(sf::VideoMode(), "Boids", sf::Style::Fullscreen);
-	window.setMouseCursorVisible(true);
-	window.setKeyRepeatEnabled(true);
-	//window.setFramerateLimit(60);
-	//window.setVerticalSyncEnabled(true);
-
 	//Create flock, vector of shapes, and initialize boids
 	Flock flock;
 	vector<sf::CircleShape> shapes;
 
-
-
-
-	//100 boids as a test
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 100; i++) //Number of boids is hardcoded for testing pusposes.
 	{
-		Boid b(rand()%window_width,rand()%window_height);
-		//Boid b(window_width / 2, window_height / 2);
+		Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
+		sf::CircleShape shape(10,3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
-		//Boid *b = new Boid(x, y);
-		sf::CircleShape shape(10,3);
+		//Changing the Visual Properties of the shape
+		shape.setPosition(b.location.x, b.location.y);
 		shape.setOutlineColor(sf::Color(255,0,0));
 		shape.setFillColor(sf::Color::Green);
 		shape.setOutlineColor(sf::Color::White);
 		shape.setOutlineThickness(1);
-		//shape.setFillColor(sf::Color(255, 0, 0));
-		//shape.setPointCount(3);
 		shape.setRadius(5);
-		shape.setPosition(b.location.x, b.location.y);
-		//shape.setPosition(window_width / 2, window_height / 2);
+
+		//Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
 		flock.addBoid(b);
 		shapes.push_back(shape);
 	}
@@ -79,56 +54,59 @@ int main()
 		while (window.pollEvent(event))
 		{
 			//"close requested" event: we close the window
+			//Implemented alternate ways to close the window. (Pressing the escape, X, and BackSpace key also close the program.)
 			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::BackSpace) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::X))
-				
+			{
 				window.close();
+			}
 		}
 
 		//check for mouse click, draws and adds boid to flock if so.
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
+			//Gets mouse coordinates, sets that as the location of the boid and the shape
 			sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
 			Boid b(mouseCoords.x, mouseCoords.y);
 			sf::CircleShape shape(10,3);
+
+			//Changing visual properties of newly created boid
 			shape.setPosition(mouseCoords.x, mouseCoords.y);
 			shape.setOutlineColor(sf::Color(255, 0, 0));
 			shape.setFillColor(sf::Color(255, 0, 0));
 			shape.setOutlineColor(sf::Color::White);
 			shape.setOutlineThickness(1);
 			shape.setRadius(5);
-			//shape.setPosition(length / 2, width / 2);
+
+			//Adds newly created boid and shape to their respective data structure
 			flock.addBoid(b);
 			shapes.push_back(shape);
-			//shapes[shapes.size()-1].rotate(shapes[shapes.size()-1].getPosition().y - shapes[shapes.size()-1].getPosition().x); //Rotates triangles to start off pointing where they are going
+
+			//New Shape is drawn
 			window.draw(shapes[shapes.size()-1]);
 		}
-
-		//Clears previous frams of visualization to not have clutter.
+		//Clears previous frames of visualization to not have clutter. (And simulate animation)
 		window.clear();
 
-		//Draws all of the Boids out, prints code location and location in window
+		//Draws all of the Boids out, and applies functions that are needed to update.
 		for (int i = 0; i < shapes.size(); i++)
 		{
 			window.draw(shapes[i]);
+
+			//Cout's removed due to slowdown and only needed for testing purposes
 			//cout << "Boid "<< i <<" Coordinates: (" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
 			//cout << "Boid Code " << i << " Location: (" << flock.getBoid(i).location.x << ", " << flock.getBoid(i).location.y << ")" << endl;
-			//shapes[i].move(rand()%200-100, rand()%200-100);
-			//shapes[i].move(rand()%25, rand()%25);
 
+			//Matches up the location of the shape to the boid.s
 			shapes[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
 
+			//Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 			float theta;
 			theta = flock.getBoid(i).angle(flock.getBoid(i).velocity);
 			shapes[i].setRotation(theta);
-			
 
-			//flock.getBoid(i).location.set(shapes[i].getPosition().x, shapes[i].getPosition().y);
-			/*Either set shape to object or vice versa*/
-			
-
-			
-			//SFML a brute force way of wrapping around
-			if (shapes[i].getPosition().x >window_width || shapes[i].getPosition().x <0 || shapes[i].getPosition().y > window_height || shapes[i].getPosition().y < 0)
+			//This loop pops the shapes out on the other side of the axis if it exceeds the screen boundaries.
+			if (shapes[i].getPosition().x >window_width || shapes[i].getPosition().x <0 || 
+				shapes[i].getPosition().y > window_height || shapes[i].getPosition().y < 0)
 			{
 				if (shapes[i].getPosition().x >window_width)
 				{
@@ -147,11 +125,6 @@ int main()
 					shapes[i].setPosition(shapes[i].getPosition().x, shapes[i].getPosition().y + window_height);
 				}
 			}
-			
-
-
-
-
 		}
 
 		//Applies the three fules to each boid in the flock and changes them accordingly.
