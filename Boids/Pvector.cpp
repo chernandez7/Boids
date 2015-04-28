@@ -1,5 +1,3 @@
-#include <string>
-#include <iostream>
 #include <math.h>
 #include "Pvector.h"
 using namespace std;
@@ -8,6 +6,7 @@ using namespace std;
 // ======== Pvector Functions from Pvector.h ========= //
 // ==================================================== //
 
+
 //Sets values fo x and y for Pvector
 void Pvector::set(float x, float y)
 {
@@ -15,11 +14,79 @@ void Pvector::set(float x, float y)
 	y = y;
 }
 
-//Sets the values of Pvector as x and y
-void Pvector::setV(Pvector v)
+void Pvector::addVector(Pvector v)
 {
-	x = v.x;
-	y = v.y;
+	x += v.x;
+	y += v.y;
+}
+
+//Adds to a Pvector by a constant number
+void Pvector::addScalar(float s)
+{
+	x += s;
+	y += s;
+}
+
+//Subtracts 2 vectors
+void Pvector::subVector(Pvector v)
+{
+	x -= v.x;
+	y -= v.y;
+}
+
+//Subtracts two vectors and returns the difference as a vector
+Pvector Pvector::subTwoVector(Pvector v, Pvector v2)
+{
+	Pvector tmp;
+	v.x -= v2.x;
+	v.y -= v2.y;
+	tmp.set(v.x, v.y);
+	return tmp;
+}
+
+//Adds to a Pvector by a constant number
+void Pvector::subScalar(float s)
+{
+	x -= s;
+	y -= s;
+}
+
+//Multiplies 2 vectors
+void Pvector::mulVector(Pvector v)
+{
+	x *= v.x;
+	y *= v.y;
+}
+
+//Adds to a Pvector by a constant number
+void Pvector::mulScalar(float s)
+{
+	x *= s;
+	y *= s;
+}
+
+//Divides 2 vectors
+void Pvector::divVector(Pvector v)
+{
+	x /= v.x;
+	y /= v.y;
+}
+
+//Adds to a Pvector by a constant number
+void Pvector::divScalar(float s)
+{
+	x /= s;
+	y /= s;
+}
+
+void Pvector::limit(double max)
+{
+	double size = magnitude();
+
+	if (size > max)
+	{
+		set(x / size, y / size); 
+	}
 }
 
 //Calculates the distance between the first Pvector and second Pvector
@@ -27,23 +94,22 @@ float Pvector::distance(Pvector v)
 {
 	float dx = x - v.x;
 	float dy = y - v.y;
-	float dist = sqrt(dx*dx + dy*dy);
+	float dist = sqrt(dx*dx + dy*dy); //Based on definition of distance formula
 	return dist;
 }
 
 //calculates the dot product of a vector
 float Pvector::dotProduct(Pvector v)
 {
-	float dot = x * v.x + y * v.y;
+	float dot = x * v.x + y * v.y; //Dot Product formula
 
 	return dot;
 }
 
-
 //Calculates magnitude of referenced object
 float Pvector::magnitude()
 {
-	float mag = sqrt(x * x + y * y);
+	float mag = sqrt(x * x + y * y); //Magnitude of vector formula
 
 	return mag;
 }
@@ -64,10 +130,10 @@ float Pvector::angleBetween(Pvector v)
 	double dot = x * v.x + y * v.y;
 	double v1mag = sqrt(x * x + y * y); 
 	double v2mag = sqrt(v.x * v.x + v.y * v.y);
-	double amt = dot / (v1mag * v2mag); //Based of definition
-
+	double amt = dot / (v1mag * v2mag); //Based of definition of dot product
+	//dot product / product of magnitudes gives amt
 	if (amt <= -1) {
-		return pi; //PConstants equivalent in C++ ?
+		return pi; 
 	}
 	else if (amt >= 1) {
 		return 0;
@@ -76,85 +142,8 @@ float Pvector::angleBetween(Pvector v)
 	return tmp;
 }
 
-/*
-//Returns X value of Pvector
-float Pvector::getX()
-{
-	return x;
-}
-
-//Returns Y value of Pvector
-float Pvector::getY()
-{
-	return y;
-}
-*/
-
-//Creates and returns a copy of the Pvector used as a parameter
-Pvector Pvector::copy(Pvector v)
-{
-	Pvector copy(v.x, v.y);
-
-	return copy;
-}
-//Adds 2 vectors
-void Pvector::addVector(Pvector v)
-{
-	x += v.x;
-	y += v.y;
-}
-//Subtracts 2 vectors
-void Pvector::subVector(Pvector v)
-{
-	x -= v.x;
-	y -= v.y;
-}
-//Multiplies 2 vectors
-void Pvector::mulVector(Pvector v)
-{
-	x *= v.x;
-	y *= v.y;
-}
-//Divides 2 vectors
-void Pvector::divVector(Pvector v)
-{
-	x /= v.x;
-	y /= v.y;
-}
-
-//Adds to a Pvector by a constant number
-void Pvector::addScalar(float s)
-{
-	x += s;
-	y += s;
-}
-//Adds to a Pvector by a constant number
-void Pvector::subScalar(float s)
-{
-	x-= s;
-	y-= s;
-}
-//Adds to a Pvector by a constant number
-void Pvector::mulScalar(float s)
-{
-	x *= s;
-	y *= s;
-}
-//Adds to a Pvector by a constant number
-void Pvector::divScalar(float s)
-{
-	x /= s;
-	y /= s;
-}
-
-void Pvector::subTwoVector(Pvector v, Pvector v2)
-{
-	v.x -= v2.x;
-	v.y -= v2.y;
-}
-
-
-void Pvector::normalize( )
+//Normalize divides x and y by magnitude if it has a magnitude.
+void Pvector::normalize()
 {
 	float m = magnitude();
 
@@ -168,12 +157,10 @@ void Pvector::normalize( )
 	}
 }
 
-void Pvector::limit(double max)
+//Creates and returns a copy of the Pvector used as a parameter
+Pvector Pvector::copy(Pvector v)
 {
-	double size = magnitude();
+	Pvector copy(v.x, v.y);
 
-	if (size > max)
-	{
-		set(x / size, y / size); //Not too sure on this
-	}
+	return copy;
 }

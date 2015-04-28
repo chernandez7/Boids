@@ -1,6 +1,5 @@
 // This file defines the boid class. This includes the attributes found in
 // boids -- speed, location on the board, acceleration, etc.
-// To do: Create PVector and implement it Here
 #include <iostream>
 #include <vector>
 #include <string>
@@ -11,58 +10,6 @@ using namespace std;
 // ======== Boid Functions from Boid.h ========= //
 // =============================================== //
 
-
-// Get Speed
-/*
-Accessor functions commented out for now. In order to access Boid data, such as
-velocity, acceleration, location, etc, a Boid.DATATYPE call is sufficient.
-Pvector Boid::getVelocity()
-{
-	return velocity;
-}
-
-// Get Acceleration
-Pvector Boid::getAcceleration()
-{
-	return acceleration;
-}
-
-// Get Location
-Pvector Boid::getLocation()
-{
-	return location;
-}
-
-// Get R
-float Boid::getR()
-{
-	return r;
-}
-
-// Get Max Speed
-float Boid::getMaxSpeed()
-{
-	return maxSpeed;
-}
-
-// Get Max Force
-float Boid::getMaxForce()
-{
-	return maxForce;
-}
-*/
-
-// Manipulate Velocity
-
-// Manipulate acceleration
-
-// Manipulate location
-
-// Manipulate Field of Vision
-void Boid::changeR(float x)
-{
-	r = x;
-}
 
 // Manipulate Max Speed
 void Boid::changeMaxSpeed(float speed)
@@ -76,31 +23,14 @@ void Boid::changeMaxForce(float force)
 	maxForce = force;
 }
 
+//Adds force Pvector to current force Pvector
 void Boid::applyForce(Pvector force)
 {
 	acceleration.addVector(force);
 }
 
-
-Pvector Boid::seek(Pvector v)
-{
-	Pvector desired, steer;
-	desired.subVector(v);  // A vector pointing from the location to the target
-	// Normalize desired and scale to maximum speed
-	desired.normalize();
-	desired.mulScalar(maxSpeed);
-	// Steering = Desired minus Velocity
-	//steer = PVector.sub(desired, velocity);
-	steer.subTwoVector(desired,velocity);
-	steer.limit(maxForce);  // Limit to maximum steering force
-	return steer;
-}
-
-
-// Separation -- Should this be included in the flock class? Assumes boid flock
-// Separation takes the vector of boids as a parameter and checks for the 
-// distance between all the boids. If for any boid, that distance ends up being
-// more than 
+// Function that checks and modifies the distance 
+// of a boid of it breaks the law of separation.
 Pvector Boid::Separation(vector<Boid> boids)
 {
 	float desiredseparation = 25.0;
@@ -135,7 +65,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 	}
 	if (steer.magnitude() > 0) 
 	{
-		// Implement Reynolds: Steering = Desired - Velocity
+		// Steering = Desired - Velocity
 		steer.normalize();
 		steer.mulScalar(maxSpeed);
 		steer.subVector(velocity);
@@ -143,9 +73,10 @@ Pvector Boid::Separation(vector<Boid> boids)
 	}
 	return steer;
 }
+
 // Alignment calculates the average velocity in the field of view and 
 // manipulates the velocity of the Boid passed as parameter to adjust to that
-// of nearb boids.
+// of nearby boids.
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
 	float neighbordist = 50;
@@ -169,7 +100,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 		// Now we create the steer Pvector, which we'll return
 		// Steer = Desired - Velocity
 		Pvector steer;
-		steer.subTwoVector(sum, velocity);
+		steer = steer.subTwoVector(sum, velocity);
 		steer.limit(maxForce);
 		return steer;
 	} else {
@@ -188,7 +119,6 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	for (int i = 0; i < Boids.size(); i++)
 	{
 		float d = location.distance(Boids[i].location);
-		//float d = distance(location, Boids[i].location);
 		if ((d > 0) && (d < neighbordist))
 		{
 			sum.addVector(Boids[i].location);
@@ -205,6 +135,22 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	}
 }
 
+//Seek function limits the maxSpeed, finds necessary steering force and normalizes the vectors.
+Pvector Boid::seek(Pvector v)
+{
+	Pvector desired, steer;
+	desired.subVector(v);  // A vector pointing from the location to the target
+	// Normalize desired and scale to maximum speed
+	desired.normalize();
+	desired.mulScalar(maxSpeed);
+	// Steering = Desired minus Velocity
+	steer.subTwoVector(desired, velocity);
+	steer.limit(maxForce);  // Limit to maximum steering force
+	return steer;
+}
+
+//Update modifies velocity, location, and resets acceleration with values that
+//are given by the three laws.
 void Boid::update()
 {
 	// Update velocity
@@ -216,6 +162,9 @@ void Boid::update()
 	acceleration.mulScalar(0);
 }
 
+//Run runs flock on the flock of boids for each boid.
+//Which applies the three rules, modifies accordingly, updates data, checks is data is
+//out of range, fixes that for SFML, and renders it on the window.
 void Boid::run(vector <Boid> v)
 {
 	flock(v);
@@ -224,12 +173,15 @@ void Boid::run(vector <Boid> v)
 	render();
 }
 
+
+//TBD
 void Boid::render()
 {
 
 }
 
-
+//Applies all three laws for the flock of boids and modifies to keep them from
+//breaking the laws.
 void Boid::flock(vector<Boid> v)
 {
 	Pvector sep = Separation(v);   // Separation
@@ -245,20 +197,12 @@ void Boid::flock(vector<Boid> v)
 	applyForce(coh);
 }
 
-
+//Checks if boids go out of the window and if so, wraps them around to the other side.
 void Boid::borders()
 {
-	/*r variable is ambiguous so will change it to 0 (r might be resolution)
-	length and width is hardcoded for the time being for testing purposes*/
+	//length and width are both 600
 	if (location.x < 0) location.x += 600; 
 	if (location.y < 0) location.y += 600; 
 	if (location.x > 600) location.x -= 600; 
 	if (location.y > 600) location.y -= -600; 
-
-	/*
-	if (location.x < -r) location.x = width+r;
-    if (location.y < -r) location.y = height+r;
-    if (location.x > width+r) location.x = -r;
-    if (location.y > height+r) location.y = -r;
-	*/
 }

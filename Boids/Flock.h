@@ -1,6 +1,3 @@
-// This file contains the class needed to create flock of boids. It utilizes
-// the boids class and initializes boid flocks with parameters that can be 
-// specified. This class will be utilized in main.
 #include <iostream>
 #include <vector>
 #include "Boid.h"
@@ -10,31 +7,39 @@ using namespace std;
 #ifndef FLOCK_H_
 #define FLOCK_H_
 
-// Possible: struct instead? template?
+/*
+Breif description of Flock Class:
+// This file contains the class needed to create flock of boids. It utilizes
+// the boids class and initializes boid flocks with parameters that can be
+// specified. This class will be utilized in main.
+*/
+
 class Flock
 {
 private:
 
 public:
+	//Public Variables
 	vector<Boid> flock;
 
-	Flock()
-	{
-		//vector<Boid> flock;
-	}
+	//Constructors
+	Flock() {}
 
+	//Destructor
 	Flock::~Flock()
 	{
-		/*
-		delete flock;
-		*/
+		//cout << "Flock is being deleted by destructor!" << endl;
 	}
 
-	//add function
-	void addBoid(Boid b);
+	//Accessor functions
 	int getSize();
-	void flocking();
 	Boid getBoid(int i);
+
+	//Mutator Functions
+	void addBoid(Boid b);
+
+	void flocking();
+
 };
 
 #endif
