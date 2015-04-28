@@ -31,11 +31,14 @@ int main()
 
 	for (int i = 0; i < 100; i++) //Number of boids is hardcoded for testing pusposes.
 	{
-		Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
+		//Boid b(rand() % window_width, rand() % window_height); //Starts the boid with a random position in the window.
+		Boid b(window_width / 2, window_height / 2); //Starts all boids in the center of the screen
 		sf::CircleShape shape(10,3); //Shape with a radius of 10 and 3 points (Making it a triangle)
 
 		//Changing the Visual Properties of the shape
-		shape.setPosition(b.location.x, b.location.y);
+		//shape.setPosition(b.location.x, b.location.y); //Sets position of shape to random location that boid was set to.
+		shape.setPosition(window_width / 2, window_height / 2); //Testing purposes, starts all shapes in the center of screen.
+
 		shape.setOutlineColor(sf::Color(255,0,0));
 		shape.setFillColor(sf::Color::Green);
 		shape.setOutlineColor(sf::Color::White);
