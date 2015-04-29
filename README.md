@@ -22,7 +22,7 @@ sudo apt-get install libsfml-dev
 ```
 
 
-Included in the zip file is a shell script (runSFMLapp.sh) which compiles and links the necessary libraries to the project. Further information on how to run the project and use SFML with Linux can be found at http://www.sfml-dev.org/tutorials/2.2/start-linux.php
+Included is a shell script (runSFMLapp.sh) which compiles and links the necessary libraries to the project. Further information on how to run the project and use SFML with Linux can be found at http://www.sfml-dev.org/tutorials/2.2/start-linux.php
 
 ### THE SIMULATION ###
 
