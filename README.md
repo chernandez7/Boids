@@ -27,12 +27,18 @@ Included is a shell script (runSFMLapp.sh) which compiles and links the necessar
 ### THE SIMULATION ###
 
 Currently, the simulation needs to be improved. This can be done by finding the right set of parameters for the three rules, as well as messing with maxForce and maxSpeed in Boid.cpp. These include:
+
 Boid.cpp:
-	maxForce
-	maxSpeed
-	desiredseparation
-	neighbordist
-	mulScalar in Boid::flock
+
+* maxForce
+
+* maxSpeed
+
+* desiredseparation
+
+* neighbordist
+
+* mulScalar in Boid::flock
 
 Future work might include creating a class that allows for these parameters to be set easily, as well as adding predators and optimizing the simulation. The program currently has terrible time complexity -- currently, the program iterates through the flock of boids -- each boid then iterates through the full flock three times to calculate each algorithm.
 
