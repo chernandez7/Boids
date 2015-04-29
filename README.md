@@ -8,17 +8,23 @@ Separation prevents boids from getting too close to each other.
 
 These three simple rules cause complex behavior to emerge, which is what makes the boid simulation interesting. The algorithms were originally written by Craig Reynolds in the 1980s.
 
-RUNNING THE SIMULATION
+### RUNNING THE SIMULATION ###
 
 Currently, the simulation runs on Windows, through Visual Studio. Appropriate libraries must be linked -- we utilized SFML (Simple Fast Multimedia Library) to visualize the project. Instructions on how to do this through Visual Studio can be found at http://www.sfml-dev.org/tutorials/2.2/start-vc.php
 
 Also, the project is able to run on Ubuntu and Debian-based distributions. To install the necessary libraries, run
 
+
+```
+#!c++
+
 sudo apt-get install libsfml-dev
+```
+
 
 Included in the zip file is a shell script (runSFMLapp.sh) which compiles and links the necessary libraries to the project. Further information on how to run the project and use SFML with Linux can be found at http://www.sfml-dev.org/tutorials/2.2/start-linux.php
 
-THE SIMULATION
+### THE SIMULATION ###
 
 Currently, the simulation needs to be improved. This can be done by finding the right set of parameters for the three rules, as well as messing with maxForce and maxSpeed in Boid.cpp. These include:
 Boid.cpp:
