@@ -1,6 +1,6 @@
 ### To do ###
-* Fix errors involving the passing of values, visualization, linking actual code to SFML.
-* Add functions to implement visualization in Boid (Run, Render, Update)
+* Optimize code, using grid system
+* Implement predators
 
 ### Goals ###
 * General Layout: Create 2D application that simulates boids. Include functionality that allows us to change settings regarding boid behavior (e.g., velocity, flocking, etc). If time allows, predators.
