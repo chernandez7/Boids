@@ -1,5 +1,6 @@
 #include "Pvector.h"
 #include <vector>
+#include <stdlib.h>
 #include <iostream>
 
 using namespace std;
@@ -8,7 +9,7 @@ using namespace std;
 #define BOID_H_
 
 /*
-Breif description of Boid Class:
+Brief description of Boid Class:
 //The boid class creates an object which has multiple vectors (location, velocity, acceleration)
 //Boids are given certain properties and rules to follow when interacting with other boids.
 //They are being used to simulate flocking patterns and properties
@@ -25,7 +26,6 @@ public:
 	float maxSpeed;
 	float maxForce;
 	
-
 	//Constructors
 	Boid(){}
 
@@ -38,12 +38,14 @@ public:
 		maxForce = 0.5;
 	}
 
+/* Destructors are commented out for now. g++ throws errors if they are included.
+   If compiling on Visual Studio, however, no errors are thrown.
 	//Destructor
 	Boid::~Boid()
 	{
 		//cout << "Boid is being deleted by destructor!" << endl;
 	}
-	
+*/	
 	//Mutator Functions
 	void applyForce(Pvector force);
 

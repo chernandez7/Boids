@@ -27,7 +27,7 @@ void Flock::addBoid(Boid b)
 
 //Runs the run function for every boid in the flock checking against the flock
 //itself. Which in turn applies all the rules to the flock.
-void Flock::flocking()
+void Flock::flocking() 
 {
 	for (int i = 0; i < flock.size(); i++)
 	{

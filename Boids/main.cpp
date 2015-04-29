@@ -3,13 +3,12 @@
 #include "Boid.h"
 #include "Pvector.h"
 #include "Flock.h"
-#include "SFML\Window.hpp"
+#include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
-
 using namespace std;
 
 /*
-Breif description of Boid Class:
+Brief description of Boid Class:
 // This file acts as the main for our boids project. Here, we utilize the SFML
 // library, import boids and flock classes, and run the program.-
 */
@@ -58,7 +57,13 @@ int main()
 		{
 			//"close requested" event: we close the window
 			//Implemented alternate ways to close the window. (Pressing the escape, X, and BackSpace key also close the program.)
-			if ((event.type == sf::Event::Closed) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::BackSpace) || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::X))
+			if ((event.type == sf::Event::Closed) || 
+				(event.type == sf::Event::KeyPressed &&
+				 event.key.code == sf::Keyboard::Escape) ||
+				(event.type == sf::Event::KeyPressed &&
+				 event.key.code == sf::Keyboard::BackSpace) ||
+				(event.type == sf::Event::KeyPressed &&
+				 event.key.code == sf::Keyboard::X))
 			{
 				window.close();
 			}

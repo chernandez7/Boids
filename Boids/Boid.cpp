@@ -3,7 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <SFML\Window.hpp>
+#include <math.h>
+#include "SFML/Graphics.hpp"
 #include "Boid.h"
 
 //Global Variables for borders()
@@ -18,12 +19,12 @@ const int window_width = desktopTemp.width;
 using namespace std;
 
 // =============================================== //
-// ======== Boid Functions from Boid.h ========= //
+// ======== Boid Functions from Boid.h =========== //
 // =============================================== //
 
 
 
-//Adds force Pvector to current force Pvector
+// Adds force Pvector to current force Pvector
 void Boid::applyForce(Pvector force)
 {
 	acceleration.addVector(force);
@@ -96,7 +97,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 	// If there are boids close enough for alignment...
 	if (count > 0)
 	{
-		sum.divScalar((float)count); 		// Divide sum by the number of close boids (average of velocity)
+		sum.divScalar((float)count);// Divide sum by the number of close boids (average of velocity)
 		sum.normalize();	   		// Turn sum into a unit vector, and
 		sum.mulScalar(maxSpeed);    // Multiply by maxSpeed
 		// Now we create the steer Pvector, which we'll return
