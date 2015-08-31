@@ -1,0 +1,10 @@
+﻿Build started 4/9/2015 6:03:13 PM.
+     1>Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Chris\repos\comp271ds-final-project\Debug\Boids.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Chris\SFML-2.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Chris\repos\comp271ds-final-project\Debug\Boids.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Chris\repos\comp271ds-final-project\Debug\Boids.lib" /MACHINE:X64 Debug\Test.obj
+     1>Debug\Test.obj : fatal error LNK1112: module machine type 'X86' conflicts with target machine type 'x64'
+     1>Done Building Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.21

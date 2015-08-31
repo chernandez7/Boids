@@ -1,0 +1,21 @@
+﻿Build started 4/30/2015 12:30:27 AM.
+     1>Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\Chris\SFML-2.2\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(35): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(34): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(39): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(77): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(81): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Chris\repos\comp271ds-final-project\x64\Debug\Boids.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Chris\SFML-2.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Chris\repos\comp271ds-final-project\x64\Debug\Boids.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Chris\repos\comp271ds-final-project\x64\Debug\Boids.lib" /MACHINE:X64 x64\Debug\Boid.obj
+         x64\Debug\Flock.obj
+         x64\Debug\main.obj
+         x64\Debug\Pvector.obj
+         Boids.vcxproj -> C:\Users\Chris\repos\comp271ds-final-project\x64\Debug\Boids.exe
+     1>Done Building Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.13

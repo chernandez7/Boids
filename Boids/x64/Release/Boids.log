@@ -1,0 +1,21 @@
+﻿Build started 6/8/2015 8:49:48 PM.
+     1>Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\Chris\SFML-2.2\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc120.pdb" /Gd /TP /errorReport:prompt Boid.cpp Flock.cpp main.cpp
+         Boid.cpp
+     1>Boid.cpp(7): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+         Flock.cpp
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(40): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(51): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(56): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Flock.cpp(13): warning C4267: 'return' : conversion from 'size_t' to 'int', possible loss of data
+         main.cpp
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(40): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(51): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\chris\repos\comp271ds-final-project\boids\Boid.h(56): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(6): fatal error C1083: Cannot open include file: 'SFML/Window.hpp': No such file or directory
+     1>Done Building Project "C:\Users\Chris\repos\comp271ds-final-project\Boids\Boids.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.88
