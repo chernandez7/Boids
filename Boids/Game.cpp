@@ -3,7 +3,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-#define BOID_AMOUNT 50
+#define BOID_AMOUNT 100
 
 
 // Construct window using SFML
@@ -14,6 +14,8 @@ Game::Game()
 	this->window_height = desktop.height;
 	this->window_width = desktop.width;
 	this->window.create(sf::VideoMode(window_width, window_height, desktop.bitsPerPixel), "Boids", sf::Style::None);
+
+	printInstructions();
 }
 
 // Run the simulation. Run creates the boids that we'll display, checks for user
@@ -78,7 +80,6 @@ void Game::Run()
 	dCohWText.setPosition(window_width - 148, 132);
 
 	sf::Clock clock;
-	float lastTime = 0;
 
 	while (window.isOpen()) {
 		float currentTime = clock.restart().asSeconds();
@@ -86,8 +87,6 @@ void Game::Run()
 		HandleInput();
 		Render(fpsText, fps, preyText, predText, boidText, 
 				dSepText, dAliText, dCohText, dSepWText, dAliWText, dCohWText);
-
-		lastTime = currentTime;
 	}
 }
 
@@ -186,13 +185,21 @@ void Game::HandleInput()
 		{
 			flock.subCohW();
 		}
+
+		if (event.type == sf::Event::KeyPressed &&
+			event.key.code == sf::Keyboard::F5)
+		{
+			window.close();
+			Game temp;;
+			temp.Run();
+		}
 	}
 
 	// Check for mouse click, draws and adds boid to flock if so.
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		// Gets mouse coordinates, sets that as the location of the boid and the shape
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
-		createBoid(mouseCoords.x, mouseCoords.y, true, sf::Color::Red, sf::Color::Red);
+		createBoid(mouseCoords.x, mouseCoords.y, true, sf::Color::Red, sf::Color::Yellow);
 	}
 }
 
@@ -281,4 +288,26 @@ void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predT
 	flock.flocking();
 
 	window.display();
+}
+
+void Game::printInstructions()
+{
+	cout << string(100, '\n');
+	cout << "--------------Instructions--------------" << endl;
+	cout << "Press 'Q' to increase Separation Amount" << endl;
+	cout << "Press 'A' to decrease Separation Amount" << endl;
+	cout << "Press 'W' to increase Alignment Amount" << endl;
+	cout << "Press 'S' to decrease Alignment Amount" << endl;
+	cout << "Press 'E' to increase Cohesion Amount" << endl;
+	cout << "Press 'D' to decrease Cohesion Amount" << endl;
+	cout << "Press 'I' to increase Separation Weight" << endl;
+	cout << "Press 'J' to decrease Separation Weight" << endl;
+	cout << "Press 'O' to increase Alignment Weight" << endl;
+	cout << "Press 'K' to decrease Alignment Weight" << endl;
+	cout << "Press 'P' to increase Alignment Weight" << endl;
+	cout << "Press 'L' to decrease Alignment Weight" << endl;
+	cout << "Press 'Space' to add a prey Boid in a random spot" << endl;
+	cout << "Left Click to add a predator Boid where you clicked" << endl;
+	cout << "Press 'F5' to restart the simulation" << endl;
+	cout << "Press 'Esc', 'Backspace', or 'X' to Quit" << endl;
 }

@@ -25,6 +25,7 @@ private:
 	void HandleInput();
 
 public:
+	void printInstructions();
 	Game();
 	void Run();
 };
