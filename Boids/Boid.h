@@ -1,7 +1,5 @@
 #include "Pvector.h"
 #include <vector>
-#include <stdlib.h>
-#include <iostream>
 
 #ifndef BOID_H_
 #define BOID_H_

@@ -1,7 +1,4 @@
-#include <iostream>
 #include "Flock.h"
-#include "Boid.h"
-#include "Pvector.h"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 

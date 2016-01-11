@@ -1,16 +1,15 @@
 #include "Flock.h"
-#include "Boid.h"
-#include "Pvector.h"
+
 #include "Game.h"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-#define BOID_AMOUNT 100
+#define BOID_AMOUNT 125
 
 // Construct window using SFML
 Game::Game()
 {
-	this->boidsSize = 3.0;
+	this->boidsSize = 5.0;
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	this->window_height = desktop.height;
 	this->window_width = desktop.width;
@@ -22,17 +21,16 @@ Game::Game()
 void Game::Run()
 {
 	for (int i = 0; i < BOID_AMOUNT; i++) {
-		//Boid b(window_width / 2 , window_height / 2); // Starts all boids in the center of the screen
-		Boid b( rand() % window_width, rand() % window_height); // Starts all boids in the center of the screen
+		Boid b(window_width / 2 , window_height / 2); // Starts all boids in the center of the screen
+		//Boid b( rand() % window_width, rand() % window_height); // Starts all boids in the center of the screen
 		sf::CircleShape shape(20, 3);
 
 		// Changing the Visual Properties of the shape
 		// shape.setPosition(b.location.x, b.location.y); // Sets position of shape to random location that boid was set to.
 		shape.setPosition(window_width, window_height); // Testing purposes, starts all shapes in the center of screen.
-		shape.setOutlineColor(sf::Color(0, 255, 0));
 		shape.setFillColor(sf::Color::Green);
-		shape.setOutlineColor(sf::Color::Green);
-		shape.setOutlineThickness(1);
+		shape.setOutlineColor(sf::Color::Blue);
+		shape.setOutlineThickness(.5);
 		shape.setRadius(boidsSize);
 
 		// Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
@@ -68,15 +66,14 @@ void Game::HandleInput()
 		// Gets mouse coordinates, sets that as the location of the boid and the shape
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
 		Boid b(mouseCoords.x, mouseCoords.y, true);
-		sf::CircleShape shape(25, 3);
+		sf::CircleShape shape(20, 3);
 
 		// Changing visual properties of newly created boid
 		shape.setPosition(mouseCoords.x, mouseCoords.y);
-		shape.setOutlineColor(sf::Color(255, 0, 0));
-		shape.setFillColor(sf::Color(255, 0, 0));
+		shape.setFillColor(sf::Color::Red);
 		shape.setOutlineColor(sf::Color::Red);
-		shape.setOutlineThickness(1);
-		shape.setRadius(boidsSize + 2);
+		shape.setOutlineThickness(.5);
+		shape.setRadius(boidsSize);
 
 		// Adds newly created boid and shape to their respective data structure
 		flock.addBoid(b);

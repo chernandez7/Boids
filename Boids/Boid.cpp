@@ -1,7 +1,6 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
-#include <string>
 #include "SFML/Graphics.hpp"
 #include "Boid.h"
 
@@ -30,12 +29,12 @@ Boid::Boid(float x, float y, bool predCheck)
 	if (predCheck == true) {
 		maxSpeed = 7.5;
 		maxForce = 1.5;
-		velocity = Pvector(rand() % 4 - 1, rand() % 4 - 1);
+		velocity = Pvector(rand() % 5 - 1, rand() % 5 - 1);
 	}
 	else {
-		maxSpeed = 3.5;
+		maxSpeed = 5.5;
 		maxForce = 0.5;
-		velocity = Pvector(rand() % 3 - 2, rand() % 3 - 2);
+		velocity = Pvector(rand() % 5 - 2, rand() % 5 - 2);
 	}
 	acceleration = Pvector(0, 0);
 	location = Pvector(x, y);
@@ -52,7 +51,7 @@ void Boid::applyForce(Pvector force)
 Pvector Boid::Separation(vector<Boid> boids)
 {
 	// Distance of field of vision for separation between boids
-	float desiredseparation = 15;
+	float desiredseparation = 20;
 	Pvector steer(0, 0);
 	int count = 0;
 	// For every boid in the system, check if it's too close
@@ -113,6 +112,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++) {
 		float d = location.distance(Boids[i].location);
+
 		if ((d > 0) && (d < neighbordist)) { // 0 < d < 50
 			sum.addVector(Boids[i].velocity);
 			count++;
@@ -145,6 +145,9 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++) {
 		float d = location.distance(Boids[i].location);
+
+		if (Boids[i].predator) neighbordist = 15;
+
 		if ((d > 0) && (d < neighbordist)) {
 			sum.addVector(Boids[i].location);
 			count++;
@@ -180,7 +183,7 @@ Pvector Boid::seek(Pvector v)
 void Boid::update()
 {
 	//To make the slow down not as abrupt
-	acceleration.mulScalar(.4);
+	acceleration.mulScalar(.35);
 	// Update velocity
 	velocity.addVector(acceleration);
 	// Limit speed
@@ -222,8 +225,8 @@ void Boid::borders()
 {
 	if (location.x < 0)    location.x += window_width;
 	if (location.y < 0)    location.y += window_height;
-	if (location.x > 1000) location.x -= window_width;
-	if (location.y > 1000) location.y -= window_height;
+	if (location.x > window_width) location.x -= window_width;
+	if (location.y > window_height) location.y -= window_height;
 }
 
 // Calculates the angle for the velocity of a boid which allows the visual
@@ -231,6 +234,6 @@ void Boid::borders()
 float Boid::angle(Pvector v)
 {
 	// From the definition of the dot product
-	float angle = (float)(atan2(v.x, -v.y) * 180 / M_PI);
+	float angle = static_cast<float>(atan2(v.x, -v.y) * 180 / M_PI);
 	return angle;
 }
