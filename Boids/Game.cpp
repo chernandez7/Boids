@@ -1,10 +1,11 @@
-#include <iostream>
 #include "Flock.h"
 #include "Boid.h"
 #include "Pvector.h"
 #include "Game.h"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+
+#define BOID_AMOUNT 100
 
 // Construct window using SFML
 Game::Game()
@@ -20,16 +21,17 @@ Game::Game()
 // input, and updates the view
 void Game::Run()
 {
-	for (int i = 0; i < 250; i++) {
-		Boid b(window_width / 3, window_height / 3); // Starts all boids in the center of the screen
-		sf::CircleShape shape(8, 3);
+	for (int i = 0; i < BOID_AMOUNT; i++) {
+		//Boid b(window_width / 2 , window_height / 2); // Starts all boids in the center of the screen
+		Boid b( rand() % window_width, rand() % window_height); // Starts all boids in the center of the screen
+		sf::CircleShape shape(20, 3);
 
 		// Changing the Visual Properties of the shape
 		// shape.setPosition(b.location.x, b.location.y); // Sets position of shape to random location that boid was set to.
 		shape.setPosition(window_width, window_height); // Testing purposes, starts all shapes in the center of screen.
 		shape.setOutlineColor(sf::Color(0, 255, 0));
 		shape.setFillColor(sf::Color::Green);
-		shape.setOutlineColor(sf::Color::White);
+		shape.setOutlineColor(sf::Color::Green);
 		shape.setOutlineThickness(1);
 		shape.setRadius(boidsSize);
 
@@ -65,16 +67,16 @@ void Game::HandleInput()
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		// Gets mouse coordinates, sets that as the location of the boid and the shape
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
-		Boid b(mouseCoords.x, mouseCoords.y, false);
-		sf::CircleShape shape(10, 3);
+		Boid b(mouseCoords.x, mouseCoords.y, true);
+		sf::CircleShape shape(25, 3);
 
 		// Changing visual properties of newly created boid
 		shape.setPosition(mouseCoords.x, mouseCoords.y);
 		shape.setOutlineColor(sf::Color(255, 0, 0));
 		shape.setFillColor(sf::Color(255, 0, 0));
-		shape.setOutlineColor(sf::Color::White);
+		shape.setOutlineColor(sf::Color::Red);
 		shape.setOutlineThickness(1);
-		shape.setRadius(boidsSize);
+		shape.setRadius(boidsSize + 2);
 
 		// Adds newly created boid and shape to their respective data structure
 		flock.addBoid(b);

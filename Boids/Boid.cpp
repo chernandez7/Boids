@@ -1,7 +1,7 @@
-#include <iostream>
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <vector>
 #include <string>
-#include <math.h>
 #include "SFML/Graphics.hpp"
 #include "Boid.h"
 
@@ -10,10 +10,6 @@
 sf::VideoMode desktopTemp = sf::VideoMode::getDesktopMode();
 const int window_height = desktopTemp.height;
 const int window_width = desktopTemp.width;
-
-#define w_height window_height
-#define w_width window_width
-#define PI 3.141592635
 
 // =============================================== //
 // ======== Boid Functions from Boid.h =========== //
@@ -33,8 +29,8 @@ Boid::Boid(float x, float y, bool predCheck)
 	predator = predCheck;
 	if (predCheck == true) {
 		maxSpeed = 7.5;
-		maxForce = 0.5;
-		velocity = Pvector(rand() % 3 - 1, rand() % 3 - 1);
+		maxForce = 1.5;
+		velocity = Pvector(rand() % 4 - 1, rand() % 4 - 1);
 	}
 	else {
 		maxSpeed = 3.5;
@@ -56,7 +52,7 @@ void Boid::applyForce(Pvector force)
 Pvector Boid::Separation(vector<Boid> boids)
 {
 	// Distance of field of vision for separation between boids
-	float desiredseparation = 20;
+	float desiredseparation = 15;
 	Pvector steer(0, 0);
 	int count = 0;
 	// For every boid in the system, check if it's too close
@@ -111,7 +107,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 // manipulates the velocity of the current boid in order to match it
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
-	float neighbordist = 50; // Field of vision
+	float neighbordist = 70; // Field of vision
 
 	Pvector sum(0, 0);
 	int count = 0;
@@ -144,7 +140,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
-	float neighbordist = 50;
+	float neighbordist = 25;
 	Pvector sum(0, 0);
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++) {
@@ -224,10 +220,10 @@ void Boid::flock(vector<Boid> v)
 // the other side.
 void Boid::borders()
 {
-	if (location.x < 0)    location.x += w_width;
-	if (location.y < 0)    location.y += w_height;
-	if (location.x > 1000) location.x -= w_width;
-	if (location.y > 1000) location.y -= w_height;
+	if (location.x < 0)    location.x += window_width;
+	if (location.y < 0)    location.y += window_height;
+	if (location.x > 1000) location.x -= window_width;
+	if (location.y > 1000) location.y -= window_height;
 }
 
 // Calculates the angle for the velocity of a boid which allows the visual
@@ -235,6 +231,6 @@ void Boid::borders()
 float Boid::angle(Pvector v)
 {
 	// From the definition of the dot product
-	float angle = (float)(atan2(v.x, -v.y) * 180 / PI);
+	float angle = (float)(atan2(v.x, -v.y) * 180 / M_PI);
 	return angle;
 }
