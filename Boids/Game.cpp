@@ -4,7 +4,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-#define BOID_AMOUNT 125
+#define BOID_AMOUNT 1
 
 // Construct window using SFML
 Game::Game()
@@ -21,21 +21,9 @@ Game::Game()
 void Game::Run()
 {
 	for (int i = 0; i < BOID_AMOUNT; i++) {
-		Boid b(window_width / 2 , window_height / 2); // Starts all boids in the center of the screen
-		//Boid b( rand() % window_width, rand() % window_height); // Starts all boids in the center of the screen
-		sf::CircleShape shape(20, 3);
 
-		// Changing the Visual Properties of the shape
-		// shape.setPosition(b.location.x, b.location.y); // Sets position of shape to random location that boid was set to.
-		shape.setPosition(window_width, window_height); // Testing purposes, starts all shapes in the center of screen.
-		shape.setFillColor(sf::Color::Green);
-		shape.setOutlineColor(sf::Color::Blue);
-		shape.setOutlineThickness(.5);
-		shape.setRadius(boidsSize);
-
-		// Adding the boid to the flock and adding the shapes to the vector<sf::CircleShape>
-		flock.addBoid(b);
-		shapes.push_back(shape);
+		createBoid(window_width / 2, window_height / 2, false, sf::Color::Green, sf::Color::Blue);
+		
 	}
 	while (window.isOpen()) {
 		HandleInput();
@@ -59,29 +47,41 @@ void Game::HandleInput()
 		{
 			window.close();
 		}
+
+		// Event to create new "prey" boids
+		if (event.type == sf::Event::KeyPressed &&
+			event.key.code == sf::Keyboard::Space) {
+			//createBoid(window_width / 2, window_height / 2, false, sf::Color::Green, sf::Color::Blue);
+			createBoid(rand() % window_width, rand() % window_height, false, sf::Color::Green, sf::Color::Blue);
+		}
 	}
 
 	// Check for mouse click, draws and adds boid to flock if so.
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		// Gets mouse coordinates, sets that as the location of the boid and the shape
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
-		Boid b(mouseCoords.x, mouseCoords.y, true);
-		sf::CircleShape shape(20, 3);
+		createBoid(mouseCoords.x, mouseCoords.y, true, sf::Color::Red, sf::Color::Red);
 
-		// Changing visual properties of newly created boid
-		shape.setPosition(mouseCoords.x, mouseCoords.y);
-		shape.setFillColor(sf::Color::Red);
-		shape.setOutlineColor(sf::Color::Red);
-		shape.setOutlineThickness(.5);
-		shape.setRadius(boidsSize);
-
-		// Adds newly created boid and shape to their respective data structure
-		flock.addBoid(b);
-		shapes.push_back(shape);
-
-		// New Shape is drawn
-		window.draw(shapes[shapes.size() - 1]);
 	}
+
+
+}
+
+void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor)
+{
+	Boid b(x, y, predStatus);
+	sf::CircleShape shape(20, 3);
+	shape.setPosition(x, y);
+	shape.setFillColor(fillColor);
+	shape.setOutlineColor(outlineColor);
+	shape.setOutlineThickness(.5);
+	shape.setRadius(boidsSize);
+
+	flock.addBoid(b);
+	shapes.push_back(shape);
+
+	// New Shape is drawn
+	window.draw(shapes[shapes.size() - 1]);
 }
 
 void Game::Render()

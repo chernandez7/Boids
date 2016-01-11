@@ -20,6 +20,7 @@ private:
 	vector<sf::CircleShape> shapes;
 
 	void Render();
+	void createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor);
 	void HandleInput();
 
 public:

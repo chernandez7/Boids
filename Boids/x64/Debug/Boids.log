@@ -1,13 +1,11 @@
-﻿Build started 1/11/2016 3:38:42 AM.
+﻿Build started 1/11/2016 4:00:33 AM.
      1>Project "C:\Users\chris\Repositories\Boids\Boids\Boids.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\chris\libs\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Boid.cpp
-         Boid.cpp
-     1>Boid.cpp(20): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Boid.cpp(32): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Boid.cpp(37): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Boid.cpp(157): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Boid.cpp(186): warning C4305: 'argument' : truncation from 'double' to 'float'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\chris\libs\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Game.cpp
+         Game.cpp
+     1>Game.cpp(25): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(55): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>Game.cpp(63): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\chris\libs\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.lib" /MACHINE:X64 x64\Debug\Boid.obj
          x64\Debug\Flock.obj
@@ -19,4 +17,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.57
+Time Elapsed 00:00:00.59
