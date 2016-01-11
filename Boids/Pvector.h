@@ -5,18 +5,14 @@ using namespace std;
 #ifndef PVECTOR_H_
 #define PVECTOR_H_
 
-/*
-Brief description of Pvector Class:
 // The Pvector class implements Euclidian vectors -- that is, each vector has
 // both a magnitude and a direction. We use Pvectors for implementing movement
 // and the three Boid rules -- cohesion, separation, and matching velocity
 // through the use of acceleration, force, and velocity vectors.
-*/
 
-class Pvector
-{
+class Pvector {
+
 public:
-	//Public Variables
 	float x;
 	float y;
 
@@ -28,16 +24,10 @@ public:
 		x = xComp;
 		y = yComp;
 	}
-/*
-	//Destructor
-	Pvector::~Pvector()
-	{
-		//cout << "Pvector is being deleted by destructor!" << endl;
-	}
-*/	
+
 	//Mutator Functions
 	void set(float x, float y);
-	
+
 	//Scalar functions scale a vector by a float
 	void addVector(Pvector v);
 	void addScalar(float x);
@@ -62,7 +52,7 @@ public:
 	float angleBetween(Pvector v);
 	void normalize();
 
-	Pvector copy(Pvector v);	
+	Pvector copy(Pvector v);
 };
 
 #endif
