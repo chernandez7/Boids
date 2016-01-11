@@ -1,10 +1,9 @@
 #include "Flock.h"
-
 #include "Game.h"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-#define BOID_AMOUNT 1
+#define BOID_AMOUNT 20
 
 // Construct window using SFML
 Game::Game()
@@ -25,9 +24,41 @@ void Game::Run()
 		createBoid(window_width / 2, window_height / 2, false, sf::Color::Green, sf::Color::Blue);
 		
 	}
+
+	sf::Font font;
+	font.loadFromFile("consola.ttf");
+
+	sf::Text fpsText("Frames per Second: ", font);
+	fpsText.setColor(sf::Color::White);
+	fpsText.setCharacterSize(12);
+	fpsText.setPosition(window_width - 157, 0);
+
+	sf::Text preyText("Total Prey Count: " + to_string(flock.preyCount()), font);
+	preyText.setColor(sf::Color::White);
+	preyText.setCharacterSize(12);
+	preyText.setPosition(window_width - 150, 12);
+
+	sf::Text predText("Total Predator Count: " + to_string(flock.predCount()), font);
+	predText.setColor(sf::Color::White);
+	predText.setCharacterSize(12);
+	predText.setPosition(window_width - 178, 24);
+
+	sf::Text boidText("Total Boid Count: " + to_string(flock.getSize()), font);
+	boidText.setColor(sf::Color::White);
+	boidText.setCharacterSize(12);
+	boidText.setPosition(window_width - 150, 36);
+
+	sf::Clock clock;
+	float lastTime = 0;
+
 	while (window.isOpen()) {
+		float currentTime = clock.restart().asSeconds();
+		float fps = 1 / currentTime;
+		cout << to_string(int(fps + 0.5)) << endl;
 		HandleInput();
-		Render();
+		Render(fpsText, fps, preyText, predText, boidText);
+
+		lastTime = currentTime;
 	}
 }
 
@@ -61,10 +92,7 @@ void Game::HandleInput()
 		// Gets mouse coordinates, sets that as the location of the boid and the shape
 		sf::Vector2i mouseCoords = sf::Mouse::getPosition(window);
 		createBoid(mouseCoords.x, mouseCoords.y, true, sf::Color::Red, sf::Color::Red);
-
 	}
-
-
 }
 
 void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor)
@@ -84,9 +112,21 @@ void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf
 	window.draw(shapes[shapes.size() - 1]);
 }
 
-void Game::Render()
+void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predText, sf::Text boidText)
 {
 	window.clear();
+
+	fpsText.setString("Frames per Second: " + to_string(int(fps + 0.5)));
+	window.draw(fpsText);
+
+	preyText.setString("Total Prey Count: " + to_string(flock.preyCount()));
+	window.draw(preyText);
+
+	predText.setString("Total Predator Count: " + to_string(flock.predCount()));
+	window.draw(predText);
+
+	boidText.setString("Total Boid Count: " + to_string(flock.getSize()));
+	window.draw(boidText);
 
 	// Draws all of the Boids out, and applies functions that are needed to update.
 	for (int i = 0; i < shapes.size(); i++) {

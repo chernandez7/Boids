@@ -1,8 +1,8 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <vector>
-#include "SFML/Graphics.hpp"
 #include "Boid.h"
+#include "SFML/Window.hpp"
 
 // Global Variables for borders()
 // desktopTemp gets screen resolution of PC running the program
@@ -25,7 +25,7 @@ Boid::Boid(float x, float y)
 
 Boid::Boid(float x, float y, bool predCheck)
 {
-	predator = predCheck;
+	predatorStatus = predCheck;
 	if (predCheck == true) {
 		maxSpeed = 7.5;
 		maxForce = 1.5;
@@ -69,8 +69,8 @@ Pvector Boid::Separation(vector<Boid> boids)
 		}
 		// If current boid is a predator and the boid we're looking at is also
 		// a predator, then separate only slightly
-		if ((d > 0) && (d < desiredseparation) && predator == true
-			&& boids[i].predator == true) {
+		if ((d > 0) && (d < desiredseparation) && predatorStatus == true
+			&& boids[i].predatorStatus == true) {
 			Pvector pred2pred(0, 0);
 			pred2pred = pred2pred.subTwoVector(location, boids[i].location);
 			pred2pred.normalize();
@@ -80,7 +80,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 		}
 		// If current boid is not a predator, but the boid we're looking at is
 		// a predator, then create a large separation Pvector
-		else if ((d > 0) && (d < desiredseparation + 70) && boids[i].predator == true) {
+		else if ((d > 0) && (d < desiredseparation + 70) && boids[i].predatorStatus == true) {
 			Pvector pred(0, 0);
 			pred = pred.subTwoVector(location, boids[i].location);
 			pred.mulScalar(900);
@@ -146,7 +146,7 @@ Pvector Boid::Cohesion(vector<Boid> Boids)
 	for (int i = 0; i < Boids.size(); i++) {
 		float d = location.distance(Boids[i].location);
 
-		if (Boids[i].predator) neighbordist = 15;
+		if (Boids[i].predatorStatus) neighbordist = 15;
 
 		if ((d > 0) && (d < neighbordist)) {
 			sum.addVector(Boids[i].location);
@@ -237,3 +237,4 @@ float Boid::angle(Pvector v)
 	float angle = static_cast<float>(atan2(v.x, -v.y) * 180 / M_PI);
 	return angle;
 }
+

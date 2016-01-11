@@ -29,7 +29,7 @@
 
 class Boid {
 public:
-	bool predator;
+	bool predatorStatus;
 	Pvector location;
 	Pvector velocity;
 	Pvector acceleration;

@@ -1,5 +1,6 @@
 #include <vector>
 #include "Boid.h"
+#include "SFML/Graphics.hpp"
 
 #ifndef FLOCK_H_
 #define FLOCK_H_
@@ -17,9 +18,14 @@ public:
 	// Accessor functions
 	int getSize();
 	Boid getBoid(int i);
+	
 	// Mutator Functions
 	void addBoid(Boid b);
 	void flocking();
+	int preyCount();
+	int predCount();
+	//void collisionChecker(Boid b, vector<sf::CircleShape> shapes);
+	//int getBoidIndex(Boid b);
 };
 
 #endif
