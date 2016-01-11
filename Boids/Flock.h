@@ -24,6 +24,21 @@ public:
 	void flocking();
 	int preyCount();
 	int predCount();
+
+	void addDesSep();
+	void subDesSep();
+	void addDesAli();
+	void subDesAli();
+	void addDesCoh();
+	void subDesCoh();
+
+	void addSepW();
+	void subSepW();
+	void addAliW();
+	void subAliW();
+	void addCohW();
+	void subCohW();
+
 	//void collisionChecker(Boid b, vector<sf::CircleShape> shapes);
 	//int getBoidIndex(Boid b);
 };

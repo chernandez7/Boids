@@ -35,6 +35,28 @@ public:
 	Pvector acceleration;
 	float maxSpeed;
 	float maxForce;
+
+	float desSep;
+	float desAli;
+	float desCoh;
+	float SepW;
+	float AliW;
+	float CohW;
+
+	float getDesSep();
+	float getDesAli();
+	float getDesCoh();
+	float getSepW();
+	float getAliW();
+	float getCohW();
+
+	void setDesSep(float x);
+	void setDesAli(float x);
+	void setDesCoh(float x);
+	void setSepW(float x);
+	void setAliW(float x);
+	void setCohW(float x);
+
 	Boid() {}
 	Boid(float x, float y);
 	Boid(float x, float y, bool predCheck);
@@ -49,7 +71,7 @@ public:
 	void update();
 	void flock(vector <Boid> v);
 	void borders();
-	float angle(Pvector v);
+	float getAngle(Pvector v);
 };
 
 #endif

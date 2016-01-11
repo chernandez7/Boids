@@ -1,6 +1,5 @@
 #include "Boid.h"
 #include "Flock.h"
-#include "SFML/Graphics.hpp"
 
 // =============================================== //
 // ======== Flock Functions from Flock.h ========= //
@@ -41,6 +40,102 @@ int Flock::preyCount()
 int Flock::predCount()
 {
 	return flock.size() - preyCount();
+}
+
+void Flock::addDesSep()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesSep(1);
+	}
+}
+
+void Flock::subDesSep()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesSep(-1);
+	}
+}
+
+void Flock::addDesAli()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesAli(1);
+	}
+}
+
+void Flock::subDesAli()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesAli(-1);
+	}
+}
+
+void Flock::addDesCoh()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesCoh(1);
+	}
+}
+
+void Flock::subDesCoh()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setDesCoh(-1);
+	}
+}
+
+void Flock::addSepW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setSepW(.1);
+	}
+}
+
+void Flock::subSepW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setSepW(-.1);
+	}
+}
+
+void Flock::addAliW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setAliW(.1);
+	}
+}
+
+void Flock::subAliW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setAliW(-.1);
+	}
+}
+
+void Flock::addCohW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setCohW(.1);
+	}
+}
+
+void Flock::subCohW()
+{
+	for (int i = 0; i < flock.size(); i++)
+	{
+		flock[i].setCohW(-.1);
+	}
 }
 
 /* Checking and deleting boids when colliding with predators increases

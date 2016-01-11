@@ -19,7 +19,8 @@ private:
 	float boidsSize;
 	vector<sf::CircleShape> shapes;
 
-	void Render(sf::Text text, float fps, sf::Text text2, sf::Text text3, sf::Text text4);
+	void Render(sf::Text text, float fps, sf::Text text2, sf::Text text3, sf::Text text4, 
+				sf::Text text5, sf::Text text6, sf::Text text7, sf::Text text8, sf::Text text9, sf::Text text10);
 	void createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor);
 	void HandleInput();
 

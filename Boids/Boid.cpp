@@ -14,6 +14,66 @@ const int window_width = desktopTemp.width;
 // ======== Boid Functions from Boid.h =========== //
 // =============================================== //
 
+float Boid::getDesSep()
+{
+	return desSep;
+}
+
+float Boid::getDesAli()
+{
+	return desAli;
+}
+
+float Boid::getDesCoh()
+{
+	return desCoh;
+}
+
+float Boid::getSepW()
+{
+	return SepW;
+}
+
+float Boid::getAliW()
+{
+	return AliW;
+}
+
+float Boid::getCohW()
+{
+	return CohW;
+}
+
+void Boid::setDesSep(float x)
+{
+	desSep += x;
+}
+
+void Boid::setDesAli(float x)
+{
+	desAli += x;
+}
+
+void Boid::setDesCoh(float x)
+{
+	desCoh += x;
+}
+
+void Boid::setSepW(float x)
+{
+	SepW += x;
+}
+
+void Boid::setAliW(float x)
+{
+	AliW += x;
+}
+
+void Boid::setCohW(float x)
+{
+	CohW += x;
+}
+
 Boid::Boid(float x, float y)
 {
 	acceleration = Pvector(0, 0);
@@ -21,6 +81,13 @@ Boid::Boid(float x, float y)
 	location = Pvector(x, y);
 	maxSpeed = 3.5;
 	maxForce = 0.5;
+
+	desSep = 20;
+	desAli = 70;
+	desCoh = 25;
+	SepW = 1.5;
+	AliW = 1.0;
+	CohW = 1.0;
 }
 
 Boid::Boid(float x, float y, bool predCheck)
@@ -38,6 +105,13 @@ Boid::Boid(float x, float y, bool predCheck)
 	}
 	acceleration = Pvector(0, 0);
 	location = Pvector(x, y);
+
+	desSep = 20;
+	desAli = 70;
+	desCoh = 25;
+	SepW = 1.5;
+	AliW = 1.0;
+	CohW = 1.0;
 }
 
 // Adds force Pvector to current force Pvector
@@ -51,7 +125,7 @@ void Boid::applyForce(Pvector force)
 Pvector Boid::Separation(vector<Boid> boids)
 {
 	// Distance of field of vision for separation between boids
-	float desiredseparation = 20;
+	float desiredseparation = desSep;
 	Pvector steer(0, 0);
 	int count = 0;
 	// For every boid in the system, check if it's too close
@@ -69,7 +143,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 		}
 		// If current boid is a predator and the boid we're looking at is also
 		// a predator, then separate only slightly
-		if ((d > 0) && (d < desiredseparation) && predatorStatus == true
+		if ((d > 0) && (d < desSep) && predatorStatus == true
 			&& boids[i].predatorStatus == true) {
 			Pvector pred2pred(0, 0);
 			pred2pred = pred2pred.subTwoVector(location, boids[i].location);
@@ -106,7 +180,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 // manipulates the velocity of the current boid in order to match it
 Pvector Boid::Alignment(vector<Boid> Boids)
 {
-	float neighbordist = 70; // Field of vision
+	float neighbordist = desAli; // Field of vision
 
 	Pvector sum(0, 0);
 	int count = 0;
@@ -140,7 +214,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 // steering force to move in that direction.
 Pvector Boid::Cohesion(vector<Boid> Boids)
 {
-	float neighbordist = 25;
+	float neighbordist = desCoh;
 	Pvector sum(0, 0);
 	int count = 0;
 	for (int i = 0; i < Boids.size(); i++) {
@@ -210,9 +284,9 @@ void Boid::flock(vector<Boid> v)
 	Pvector ali = Alignment(v);
 	Pvector coh = Cohesion(v);
 	// Arbitrarily weight these forces
-	sep.mulScalar(1.5);
-	ali.mulScalar(1.0); // Might need to alter weights for different characteristics
-	coh.mulScalar(1.0);
+	sep.mulScalar(SepW);
+	ali.mulScalar(AliW); // Might need to alter weights for different characteristics
+	coh.mulScalar(CohW);
 	// Add the force vectors to acceleration
 	applyForce(sep);
 	applyForce(ali);
@@ -231,7 +305,7 @@ void Boid::borders()
 
 // Calculates the angle for the velocity of a boid which allows the visual
 // image to rotate in the direction that it is going in.
-float Boid::angle(Pvector v)
+float Boid::getAngle(Pvector v)
 {
 	// From the definition of the dot product
 	float angle = static_cast<float>(atan2(v.x, -v.y) * 180 / M_PI);
