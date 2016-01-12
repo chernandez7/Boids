@@ -9,7 +9,7 @@
 // Construct window using SFML
 Game::Game()
 {
-	this->boidsSize = 5.0;
+	this->boidsSize = 6.0;
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	this->window_height = desktop.height;
 	this->window_width = desktop.width;
@@ -206,12 +206,23 @@ void Game::HandleInput()
 void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor)
 {
 	Boid b(x, y, predStatus);
-	sf::CircleShape shape(20, 3);
+	sf::CircleShape shape(boidsSize, 3);
 	shape.setPosition(x, y);
 	shape.setFillColor(fillColor);
 	shape.setOutlineColor(outlineColor);
 	shape.setOutlineThickness(.5);
-	shape.setRadius(boidsSize);
+
+	/*
+	if (predStatus)
+	{
+		sf::CircleShape FOV(20, 30);
+		FOV.setOutlineColor(sf::Color::White);
+		FOV.setOutlineThickness(.25);
+		FOV.setFillColor(sf::Color::Transparent);
+		FOVs.push_back(FOV);
+	}
+	*/
+	
 
 	flock.addBoid(b);
 	shapes.push_back(shape);
@@ -258,6 +269,15 @@ void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predT
 	// Draws all of the Boids out, and applies functions that are needed to update.
 	for (int i = 0; i < shapes.size(); i++) {
 		window.draw(shapes[i]);
+		/*
+		if (flock.getBoid(i).predatorStatus())
+		{
+			window.draw(FOVs[i]);
+			FOVs[i].setPosition(flock.getBoid(i).location.x, flock.getBoid(i).location.y);
+			FOVs[i].move(-20, -12);
+		}
+		*/
+
 
 		//cout << "Boid "<< i <<" Coordinates: (" << shapes[i].getPosition().x << ", " << shapes[i].getPosition().y << ")" << endl;
 		//cout << "Boid Code " << i << " Location: (" << flock.getBoid(i).location.x << ", " << flock.getBoid(i).location.y << ")" << endl;
@@ -268,6 +288,7 @@ void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predT
 		// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 		float theta = flock.getBoid(i).getAngle(flock.getBoid(i).velocity);
 		shapes[i].setRotation(theta);
+		//FOVs[i].setRotation(theta);
 
 		// Prevent boids from moving off the screen through wrapping
 		// If boid exits right boundary

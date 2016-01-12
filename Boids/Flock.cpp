@@ -21,8 +21,13 @@ void Flock::flocking()
 {
 	for (int i = 0; i < flock.size(); i++)
 	{
-		flock[i].run(flock);
-		//collisionChecker(flock[i], shapes);
+		for (int j = 0; j < flock.size(); j++)
+		{
+			if (flock[i].location.distance(flock[j].location) <= abs(20))
+			{
+				flock[i].run(flock);
+			}
+		}
 	}
 }
 

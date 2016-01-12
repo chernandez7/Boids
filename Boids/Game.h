@@ -18,6 +18,7 @@ private:
 	Flock flock;
 	float boidsSize;
 	vector<sf::CircleShape> shapes;
+	//vector<sf::CircleShape> FOVs;
 
 	void Render(sf::Text text, float fps, sf::Text text2, sf::Text text3, sf::Text text4, 
 				sf::Text text5, sf::Text text6, sf::Text text7, sf::Text text8, sf::Text text9, sf::Text text10);
