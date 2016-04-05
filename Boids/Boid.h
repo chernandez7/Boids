@@ -36,6 +36,23 @@ public:
 	float maxSpeed;
 	float maxForce;
 
+	Boid() {}
+	Boid(float x, float y);
+	Boid(float x, float y, bool predCheck);
+	void applyForce(Pvector force);
+	// Three Laws that boids follow
+	Pvector Separation(vector<Boid> Boids);
+	Pvector Alignment(vector<Boid> Boids);
+	Pvector Cohesion(vector<Boid> Boids);
+	//Functions involving SFML and visualisation linking
+	Pvector seek(Pvector v);
+	void run(vector <Boid> v);
+	void update();
+	void flock(vector <Boid> v);
+	void borders();
+	float getAngle(Pvector v);
+
+	//Used instead of global variables to access values and weights in Game.cpp
 	float desSep;
 	float desAli;
 	float desCoh;
@@ -56,22 +73,6 @@ public:
 	void setSepW(float x);
 	void setAliW(float x);
 	void setCohW(float x);
-
-	Boid() {}
-	Boid(float x, float y);
-	Boid(float x, float y, bool predCheck);
-	void applyForce(Pvector force);
-	// Three Laws that boids follow
-	Pvector Separation(vector<Boid> Boids);
-	Pvector Alignment(vector<Boid> Boids);
-	Pvector Cohesion(vector<Boid> Boids);
-	//Functions involving SFML and visualisation linking
-	Pvector seek(Pvector v);
-	void run(vector <Boid> v);
-	void update();
-	void flock(vector <Boid> v);
-	void borders();
-	float getAngle(Pvector v);
 };
 
 #endif

@@ -3,8 +3,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
-#define BOID_AMOUNT 100
-
+#define BOID_AMOUNT 75
 
 // Construct window using SFML
 Game::Game()
@@ -14,7 +13,6 @@ Game::Game()
 	this->window_height = desktop.height;
 	this->window_width = desktop.width;
 	this->window.create(sf::VideoMode(window_width, window_height, desktop.bitsPerPixel), "Boids", sf::Style::None);
-
 	printInstructions();
 }
 
@@ -26,6 +24,7 @@ void Game::Run()
 		createBoid(window_width / 2, window_height / 2, false, sf::Color::Green, sf::Color::Blue);
 	}
 
+	//Whole block of text can probably simplified in a function as well in order to remove redundancy
 	sf::Font font;
 	font.loadFromFile("consola.ttf");
 
@@ -79,11 +78,13 @@ void Game::Run()
 	dCohWText.setCharacterSize(12);
 	dCohWText.setPosition(window_width - 148, 132);
 
+
+	// Clock added to calculate frame rate, may cause a small amount of slowdown?
 	sf::Clock clock;
 
 	while (window.isOpen()) {
 		float currentTime = clock.restart().asSeconds();
-		float fps = 1 / currentTime;
+		float fps = 1 / currentTime; // 1 / refresh time = estimate of fps
 		HandleInput();
 		Render(fpsText, fps, preyText, predText, boidText, 
 				dSepText, dAliText, dCohText, dSepWText, dAliWText, dCohWText);
@@ -110,10 +111,11 @@ void Game::HandleInput()
 		// Event to create new "prey" boids
 		if (event.type == sf::Event::KeyPressed &&
 			event.key.code == sf::Keyboard::Space) {
-			//createBoid(window_width / 2, window_height / 2, false, sf::Color::Green, sf::Color::Blue);
 			createBoid(rand() % window_width, rand() % window_height, false, sf::Color::Green, sf::Color::Blue);
 		}
 
+
+		//Events for modifying the values in Boids, possibly can be refactored?
 		if (event.type == sf::Event::KeyPressed &&
 			event.key.code == sf::Keyboard::Q)
 		{
@@ -212,7 +214,8 @@ void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf
 	shape.setOutlineColor(outlineColor);
 	shape.setOutlineThickness(.5);
 
-	/*
+	/* FOV would show the radius that the boid would check to apply flocking
+
 	if (predStatus)
 	{
 		sf::CircleShape FOV(20, 30);
@@ -231,11 +234,13 @@ void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf
 	window.draw(shapes[shapes.size() - 1]);
 }
 
+//Method of passing text needs refactoring
 void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predText, sf::Text boidText, 
 				sf::Text dSepText, sf::Text dAliText, sf::Text dCohText, sf::Text dSepWText, sf::Text dAliWText, sf::Text dCohWText)
 {
 	window.clear();
 
+	//Updating and drawing text can possibly be put in it's own function as well
 	fpsText.setString("Frames per Second: " + to_string(int(fps + 0.5)));
 	window.draw(fpsText);
 
@@ -269,7 +274,8 @@ void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predT
 	// Draws all of the Boids out, and applies functions that are needed to update.
 	for (int i = 0; i < shapes.size(); i++) {
 		window.draw(shapes[i]);
-		/*
+
+		/*Drawing and updating of the boids FOV
 		if (flock.getBoid(i).predatorStatus())
 		{
 			window.draw(FOVs[i]);
@@ -288,7 +294,6 @@ void Game::Render(sf::Text fpsText, float fps, sf::Text preyText, sf::Text predT
 		// Calculates the angle where the velocity is pointing so that the triangle turns towards it.
 		float theta = flock.getBoid(i).getAngle(flock.getBoid(i).velocity);
 		shapes[i].setRotation(theta);
-		//FOVs[i].setRotation(theta);
 
 		// Prevent boids from moving off the screen through wrapping
 		// If boid exits right boundary

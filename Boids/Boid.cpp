@@ -14,66 +14,6 @@ const int window_width = desktopTemp.width;
 // ======== Boid Functions from Boid.h =========== //
 // =============================================== //
 
-float Boid::getDesSep()
-{
-	return desSep;
-}
-
-float Boid::getDesAli()
-{
-	return desAli;
-}
-
-float Boid::getDesCoh()
-{
-	return desCoh;
-}
-
-float Boid::getSepW()
-{
-	return SepW;
-}
-
-float Boid::getAliW()
-{
-	return AliW;
-}
-
-float Boid::getCohW()
-{
-	return CohW;
-}
-
-void Boid::setDesSep(float x)
-{
-	desSep += x;
-}
-
-void Boid::setDesAli(float x)
-{
-	desAli += x;
-}
-
-void Boid::setDesCoh(float x)
-{
-	desCoh += x;
-}
-
-void Boid::setSepW(float x)
-{
-	SepW += x;
-}
-
-void Boid::setAliW(float x)
-{
-	AliW += x;
-}
-
-void Boid::setCohW(float x)
-{
-	CohW += x;
-}
-
 Boid::Boid(float x, float y)
 {
 	acceleration = Pvector(0, 0);
@@ -312,3 +252,62 @@ float Boid::getAngle(Pvector v)
 	return angle;
 }
 
+float Boid::getDesSep()
+{
+	return desSep;
+}
+
+float Boid::getDesAli()
+{
+	return desAli;
+}
+
+float Boid::getDesCoh()
+{
+	return desCoh;
+}
+
+float Boid::getSepW()
+{
+	return SepW;
+}
+
+float Boid::getAliW()
+{
+	return AliW;
+}
+
+float Boid::getCohW()
+{
+	return CohW;
+}
+
+void Boid::setDesSep(float x)
+{
+	desSep += x;
+}
+
+void Boid::setDesAli(float x)
+{
+	desAli += x;
+}
+
+void Boid::setDesCoh(float x)
+{
+	desCoh += x;
+}
+
+void Boid::setSepW(float x)
+{
+	SepW += x;
+}
+
+void Boid::setAliW(float x)
+{
+	AliW += x;
+}
+
+void Boid::setCohW(float x)
+{
+	CohW += x;
+}

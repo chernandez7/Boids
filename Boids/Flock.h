@@ -22,6 +22,8 @@ public:
 	// Mutator Functions
 	void addBoid(Boid b);
 	void flocking();
+
+	//For accessing values and modifying values in Game.cpp
 	int preyCount();
 	int predCount();
 

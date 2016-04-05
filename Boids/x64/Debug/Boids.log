@@ -1,30 +1,9 @@
-﻿Build started 1/11/2016 9:09:39 PM.
+﻿Build started 4/5/2016 2:06:54 PM.
      1>Project "C:\Users\chris\Repositories\Boids\Boids\Boids.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\chris\libs\SFML-2.3.2\include" /Zi /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Game.cpp
-         Game.cpp
-     1>Game.cpp(26): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(35): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(40): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(45): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(50): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(55): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(60): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(65): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(70): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(75): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(80): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(114): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>Game.cpp(202): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\chris\libs\SFML-2.3.2\lib" "sfml-graphics-d.lib" "sfml-window-d.lib" "sfml-system-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\chris\Repositories\Boids\x64\Debug\Boids.lib" /MACHINE:X64 x64\Debug\Boid.obj
-         x64\Debug\Flock.obj
-         x64\Debug\Game.obj
-         x64\Debug\main.obj
-         x64\Debug\Pvector.obj
+     1>Link:
          Boids.vcxproj -> C:\Users\chris\Repositories\Boids\x64\Debug\Boids.exe
      1>Done Building Project "C:\Users\chris\Repositories\Boids\Boids\Boids.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.62
+Time Elapsed 00:00:00.03

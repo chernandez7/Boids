@@ -1,11 +1,11 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <math.h>
 #include "Pvector.h"
 
 // =================================================== //
 // ======== Pvector Functions from Pvector.h ========= //
 // =================================================== //
-
-#define PI 3.141592635
 
 // Sets values of x and y for Pvector
 void Pvector::set(float i, float o)
@@ -128,7 +128,7 @@ float Pvector::angleBetween(Pvector v)
 	double amt = dot / (v1mag * v2mag); //Based of definition of dot product
 	//dot product / product of magnitudes gives amt
 	if (amt <= -1) {
-		return PI;
+		return M_PI;
 	}
 	else if (amt >= 1) {
 		return 0;

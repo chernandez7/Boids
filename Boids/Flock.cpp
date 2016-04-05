@@ -21,9 +21,10 @@ void Flock::flocking()
 {
 	for (int i = 0; i < flock.size(); i++)
 	{
-		for (int j = 0; j < flock.size(); j++)
+		//Only checks in a certain range instead of checking through the whole flock in an attempt to reduce time complexity
+		for (int j = 0; j < flock.size(); j++) 
 		{
-			if (flock[i].location.distance(flock[j].location) <= abs(20))
+			if (flock[i].location.distance(flock[j].location) <= abs(20)) // Not sure if distance is 1:1 with SFML window size or if it is even working
 			{
 				flock[i].run(flock);
 			}
