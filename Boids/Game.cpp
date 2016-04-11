@@ -8,7 +8,7 @@
 // Construct window using SFML
 Game::Game()
 {
-	this->boidsSize = 6.0;
+	//this->boidsSize = rand() % 10 - 3;
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 	this->_window_height = desktop.height;
 	this->_window_width = desktop.width;
@@ -207,8 +207,9 @@ void Game::HandleInput()
 
 void Game::createBoid(float x, float y, bool predStatus, sf::Color fillColor, sf::Color outlineColor)
 {
+	int size = rand() % 10 - 2;
 	Boid b(x, y, predStatus);
-	sf::CircleShape shape(boidsSize, 3);
+	sf::CircleShape shape(size, 3);
 	shape.setPosition(x, y);
 	shape.setFillColor(fillColor);
 	shape.setOutlineColor(outlineColor);
