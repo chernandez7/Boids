@@ -36,10 +36,11 @@ public:
 	float maxSpeed;
 	float maxForce;
 
-	Boid() {}
 	Boid(float x, float y);
 	Boid(float x, float y, bool predCheck);
+
 	void applyForce(Pvector force);
+
 	// Three Laws that boids follow
 	Pvector Separation(vector<Boid> Boids);
 	Pvector Alignment(vector<Boid> Boids);
@@ -50,7 +51,7 @@ public:
 	void update();
 	void flock(vector <Boid> v);
 	void borders();
-	float getAngle(Pvector v);
+	float getAngle(Pvector v) const;
 
 	//Used instead of global variables to access values and weights in Game.cpp
 	float desSep;
@@ -60,12 +61,12 @@ public:
 	float AliW;
 	float CohW;
 
-	float getDesSep();
-	float getDesAli();
-	float getDesCoh();
-	float getSepW();
-	float getAliW();
-	float getCohW();
+	float getDesSep() const;
+	float getDesAli() const;
+	float getDesCoh() const;
+	float getSepW() const;
+	float getAliW() const;
+	float getCohW() const;
 
 	void setDesSep(float x);
 	void setDesAli(float x);

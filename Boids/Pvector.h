@@ -32,7 +32,7 @@ public:
 	void addScalar(float x);
 
 	void subVector(Pvector v);
-	Pvector subTwoVector(Pvector v, Pvector v2);
+	static Pvector subTwoVector(Pvector v, Pvector v2);
 	void subScalar(float x);
 
 	void mulVector(Pvector v);
@@ -44,14 +44,14 @@ public:
 	void limit(double max);
 
 	//Calculating Functions
-	float distance(Pvector v);
-	float dotProduct(Pvector v);
-	float magnitude();
+	float distance(Pvector v) const;
+	float dotProduct(Pvector v) const;
+	float magnitude() const;
 	void setMagnitude(float x);
-	float angleBetween(Pvector v);
+	float angleBetween(Pvector v) const;
 	void normalize();
 
-	Pvector copy(Pvector v);
+	static Pvector copy(Pvector v);
 };
 
 #endif

@@ -16,7 +16,7 @@ public:
 	//Constructors
 	Flock() {}
 	// Accessor functions
-	int getSize();
+	int getSize() const;
 	Boid getBoid(int i);
 	
 	// Mutator Functions

@@ -14,7 +14,7 @@ const int window_width = desktopTemp.width;
 // ======== Boid Functions from Boid.h =========== //
 // =============================================== //
 
-Boid::Boid(float x, float y)
+Boid::Boid(float x, float y): predatorStatus(false)
 {
 	acceleration = Pvector(0, 0);
 	velocity = Pvector(rand() % 3 - 2, rand() % 3 - 2);
@@ -104,7 +104,7 @@ Pvector Boid::Separation(vector<Boid> boids)
 	}
 	// Adds average difference of location to acceleration
 	if (count > 0)
-		steer.divScalar((float)count);
+		steer.divScalar(static_cast<float>(count));
 	if (steer.magnitude() > 0) {
 		// Steering = Desired - Velocity
 		steer.normalize();
@@ -134,7 +134,7 @@ Pvector Boid::Alignment(vector<Boid> Boids)
 	}
 	// If there are boids close enough for alignment...
 	if (count > 0) {
-		sum.divScalar((float)count);// Divide sum by the number of close boids (average of velocity)
+		sum.divScalar(static_cast<float>(count));// Divide sum by the number of close boids (average of velocity)
 		sum.normalize();            // Turn sum into a unit vector, and
 		sum.mulScalar(maxSpeed);    // Multiply by maxSpeed
 		// Steer = Desired - Velocity
@@ -245,69 +245,33 @@ void Boid::borders()
 
 // Calculates the angle for the velocity of a boid which allows the visual
 // image to rotate in the direction that it is going in.
-float Boid::getAngle(Pvector v)
+float Boid::getAngle(Pvector v) const
 {
 	// From the definition of the dot product
 	float angle = static_cast<float>(atan2(v.x, -v.y) * 180 / M_PI);
 	return angle;
 }
 
-float Boid::getDesSep()
-{
-	return desSep;
-}
+float Boid::getDesSep() const { return desSep; }
 
-float Boid::getDesAli()
-{
-	return desAli;
-}
+float Boid::getDesAli() const { return desAli; }
 
-float Boid::getDesCoh()
-{
-	return desCoh;
-}
+float Boid::getDesCoh() const { return desCoh; }
 
-float Boid::getSepW()
-{
-	return SepW;
-}
+float Boid::getSepW() const { return SepW; }
 
-float Boid::getAliW()
-{
-	return AliW;
-}
+float Boid::getAliW() const { return AliW; }
 
-float Boid::getCohW()
-{
-	return CohW;
-}
+float Boid::getCohW() const { return CohW; }
 
-void Boid::setDesSep(float x)
-{
-	desSep += x;
-}
+void Boid::setDesSep(float x) { desSep += x; }
 
-void Boid::setDesAli(float x)
-{
-	desAli += x;
-}
+void Boid::setDesAli(float x) { desAli += x; }
 
-void Boid::setDesCoh(float x)
-{
-	desCoh += x;
-}
+void Boid::setDesCoh(float x) { desCoh += x; }
 
-void Boid::setSepW(float x)
-{
-	SepW += x;
-}
+void Boid::setSepW(float x) { SepW += x; }
 
-void Boid::setAliW(float x)
-{
-	AliW += x;
-}
+void Boid::setAliW(float x) { AliW += x; }
 
-void Boid::setCohW(float x)
-{
-	CohW += x;
-}
+void Boid::setCohW(float x) { CohW += x; }

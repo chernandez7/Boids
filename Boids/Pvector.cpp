@@ -89,7 +89,7 @@ void Pvector::limit(double max)
 }
 
 // Calculates the distance between the first Pvector and second Pvector
-float Pvector::distance(Pvector v)
+float Pvector::distance(Pvector v) const
 {
 	float dx = x - v.x;
 	float dy = y - v.y;
@@ -98,14 +98,14 @@ float Pvector::distance(Pvector v)
 }
 
 // Calculates the dot product of a vector
-float Pvector::dotProduct(Pvector v)
+float Pvector::dotProduct(Pvector v) const
 {
 	float dot = x * v.x + y * v.y;
 	return dot;
 }
 
 // Calculates magnitude of referenced object
-float Pvector::magnitude()
+float Pvector::magnitude() const
 {
 	return sqrt(x*x + y*y);
 }
@@ -117,7 +117,7 @@ void Pvector::setMagnitude(float x)
 }
 
 // Calculate the angle between Pvector 1 and Pvector 2
-float Pvector::angleBetween(Pvector v)
+float Pvector::angleBetween(Pvector v) const
 {
 	if (x == 0 && y == 0) return 0.0f;
 	if (v.x == 0 && v.y == 0) return 0.0f;

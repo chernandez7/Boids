@@ -5,10 +5,7 @@
 // ======== Flock Functions from Flock.h ========= //
 // =============================================== //
 
-int Flock::getSize()
-{
-	return flock.size();
-}
+int Flock::getSize() const { return flock.size(); }
 
 Boid Flock::getBoid(int i) { return flock[i]; }
 
