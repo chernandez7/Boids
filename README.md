@@ -1,5 +1,7 @@
 ### README ###
 
+https://www.youtube.com/watch?v=drYo_evc4hQ
+
 This project attempts to simulate flocking behavior, through the creation of simple entities called Boids (birdoids). These boids, which exist on a two-dimensional plane function through three simple rules -- alignment, cohesion, and separation.
 
 Alignment causes boids to match velocity of nearby boids.
